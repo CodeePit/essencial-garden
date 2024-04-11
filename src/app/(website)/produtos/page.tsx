@@ -49,7 +49,7 @@ export default function Page() {
 								<Checkbox id="c2" />
 								<label
 									htmlFor="c2"
-									className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+									className="text-sm whitespace-nowrap font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 								>
 									Nome Categoria
 								</label>

@@ -1,24 +1,60 @@
+'use client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/admin/ui/card";
 import { Input } from "@/components/admin/ui/input";
 import { Label } from "@/components/admin/ui/label";
 import { Textarea } from "@/components/admin/ui/textarea";
+import { Butto } from "@/components/admin/ui/button";
+import { useState } from 'react';
+import { URI_ID_INVALID_REGEX } from '@/utils/regex';
 
 export default function ProductDetailsCard() {
+  const [uriId, setUriId] = useState();
+
   return (
     <Card x-chunk="dashboard-07-chunk-0">
       <CardHeader>
-        <CardTitle>Product Details</CardTitle>
-        <CardDescription>Lipsum dolor sit amet, consectetur adipiscing elit</CardDescription>
+        <CardTitle>Detalhes do Produtos</CardTitle>
+        <CardDescription>Edite as informações do produto de acordo com suas preferências.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-6">
           <div className="grid gap-3">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" type="text" className="w-full" defaultValue="Gamer Gear Pro Controller" />
+            <Label htmlFor="name">Nome</Label>
+            <Input id="name" type="text" className="w-full" placeholder="Produto X"required />
           </div>
           <div className="grid gap-3">
-            <Label htmlFor="description">Description</Label>
-            <Textarea id="description" defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc." className="min-h-32" />
+            <Label htmlFor="uri-id">URL do Produto</Label>
+            <div className="flex focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-ring rounded">
+              <div className="border whitespace-nowrap border-r-transparent p-2 rounded-l bg-accent text-sm text-primary/50 px-4">
+                essencial-garden.vercel.app/produto/
+              </div>
+              <Input
+                className="rounded-l-none !ring-transparent !ring-0 !ring-offset-0"
+                value={uriId}
+                id="uri-id"
+                placeholder="produto-x"
+                required
+                maxLength={25}
+                onChange={(ev) => {
+                  setUriId(
+                    ev.target.value.length <= 25
+                      ? ev.target.value
+                      : ev.target.value
+                          .toLowerCase()
+                          .replaceAll(URI_ID_INVALID_REGEX, ""),
+                  );
+                }}
+              />
+              <Button variant="outline"></Button>
+            </div>
+					</div>
+          <div className="grid gap-3">
+            <Label htmlFor="description">Descrição</Label>
+            <Textarea required id="description" placeholder="..." className="min-h-32" />
+          </div>
+          <div className="grid gap-3">
+            <Label htmlFor="keywords">Keywords for SEO</Label>
+            <Input id="keywords" name="keywords" type="text" className="w-full" placeholder="Produto X, Produto para ..." />
           </div>
         </div>
       </CardContent>
