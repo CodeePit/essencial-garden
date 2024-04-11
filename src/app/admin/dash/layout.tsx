@@ -1,25 +1,6 @@
 import Link from "next/link";
-import {
-	Bell,
-	CircleUser,
-	Home,
-	LineChart,
-	Menu,
-	Package,
-	Package2,
-	Search,
-	ShoppingCart,
-	Users,
-} from "lucide-react";
-import { Badge } from "@/components/admin/ui/badge";
+import { CircleUser, Menu, Package, Package2, Search, Tag } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/admin/ui/card";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -29,20 +10,33 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/admin/ui/dropdown-menu";
 import { Input } from "@/components/admin/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+	Sheet,
+	SheetContent,
+	SheetTrigger,
+	SheetClose,
+} from "@/components/ui/sheet";
 import { signOut } from "../actions";
+import { cn } from "@/utils/cn";
+import { headers } from "next/headers";
 
 export default function Layout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const headersList = headers();
+	const pathname = headersList.get("x-url-pathname");
+
 	return (
 		<div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
 			<div className="hidden border-r bg-muted/40 md:block">
 				<div className="flex h-full max-h-screen flex-col gap-2">
 					<div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-						<Link href="/" className="flex items-center gap-2 font-semibold">
+						<Link
+							href="/admin/dash"
+							className="flex items-center gap-2 font-semibold"
+						>
 							<Package2 className="h-6 w-6" />
 							<span className="">DevStyle Dash</span>
 						</Link>
@@ -50,11 +44,29 @@ export default function Layout({
 					<div className="flex-1">
 						<nav className="grid items-start px-2 text-sm font-medium lg:px-4">
 							<Link
-								href="#"
-								className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+								href="/admin/dash"
+								className={cn(
+									"flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+									{
+										"text-primary bg-muted": pathname === "/admin/dash",
+									},
+								)}
 							>
 								<Package className="h-4 w-4" />
-								Products{" "}
+								Produtos{" "}
+							</Link>
+							<Link
+								href="/admin/dash/categories"
+								className={cn(
+									"flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+									{
+										"text-primary bg-muted":
+											pathname === "/admin/dash/categories",
+									},
+								)}
+							>
+								<Tag className="h-4 w-4" />
+								Categorias
 							</Link>
 						</nav>
 					</div>
@@ -75,20 +87,33 @@ export default function Layout({
 						</SheetTrigger>
 						<SheetContent side="left" className="flex flex-col">
 							<nav className="grid gap-2 text-lg font-medium">
-								<Link
-									href="#"
-									className="flex items-center gap-2 text-lg font-semibold"
-								>
-									<Package2 className="h-6 w-6" />
-									<span className="sr-only">DevStyle Dash</span>
-								</Link>
-								<Link
-									href="#"
-									className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-								>
-									<Package className="h-5 w-5" />
-									Products
-								</Link>
+								<SheetClose asChild>
+									<Link
+										href="/admin/dash"
+										className="flex items-center gap-2 text-lg font-semibold"
+									>
+										<Package2 className="h-6 w-6" />
+										<span>DevStyle Dash</span>
+									</Link>
+								</SheetClose>
+								<SheetClose asChild>
+									<Link
+										href="/admin/dash"
+										className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+									>
+										<Package className="h-5 w-5" />
+										Products
+									</Link>
+								</SheetClose>
+								<SheetClose asChild>
+									<Link
+										href="/admin/dash/categories"
+										className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+									>
+										<Tag className="h-5 w-5" />
+										Categorias
+									</Link>
+								</SheetClose>
 							</nav>
 						</SheetContent>
 					</Sheet>

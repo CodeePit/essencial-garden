@@ -20,6 +20,7 @@ const config = {
 			screens: {
 				"2md": "880px",
 				xs: "360px",
+				'2xs': "460px",
 			},
 			fontFamily: {
 				sans: ["var(--font-sans)", ...fontFamily.sans],
