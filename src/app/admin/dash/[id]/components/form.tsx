@@ -12,7 +12,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { imageConversion } from "@/utils/image-conversion";
 import { useState } from "react";
 
-export const Form = ({ product, categories }: { product: null, categories: {id: string, name: string}[] }) => {
+export const Form = ({
+	product,
+	categories,
+}: { product: null; categories: { id: string; name: string }[] }) => {
 	const supabase = createClient();
 	const [loading, setLoading] = useState(false);
 	const [uploadPercentage, setUploadPercentage] = useState(0);
@@ -71,17 +74,32 @@ export const Form = ({ product, categories }: { product: null, categories: {id: 
 					uri_id: { value: uri_id },
 					name: { value: name },
 					category,
-          status
-				} = ev.currentTarget as EventTarget & HTMLFormElement &
+					status,
+				} = ev.currentTarget as EventTarget &
+					HTMLFormElement &
 					Record<
 						"keywords" | "description" | "uri_id" | "name",
 						HTMLInputElement
-					> & Record<
-            "category" | 'status',
-            HTMLInputElement[]
-          >;
+					> &
+					Record<"category" | "status", HTMLInputElement[]>;
 
-        const data = { keywords, description, uri_id, name, status: status[1].value, category: category[1].value }
+				const new_product = {
+					keywords,
+					description,
+					uri_id,
+					name,
+					status: status[1].value,
+					category: category[1].value,
+				};
+
+				const { data, error } = await supabase.from('products').insert(new_product).select('id');
+				if (error || !data) {
+					toast({
+						variant: "destructive",
+						title: "Ops!",
+						description: "Ocorreu um erro ao salvar seu produto.",
+					});
+				}
 
 				setLoading(false);
 			}}
