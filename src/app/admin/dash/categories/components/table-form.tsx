@@ -29,6 +29,7 @@ import { generateRandomCode } from "@/utils/generate-random-code";
 import { useMemo, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { handleCategory, deleteCategory } from "../actions";
+import { DeleteCategory } from "./delete-category";
 
 export const TableForm = (props: {
 	categories: { id: string; name: string }[] | null;
@@ -182,41 +183,7 @@ export const TableForm = (props: {
 										</form>
 									</TableCell>
 									<TableCell>
-										<DropdownMenu>
-											<DropdownMenuTrigger asChild>
-												<Button
-													aria-haspopup="true"
-													size="icon"
-													variant="ghost"
-												>
-													<MoreHorizontal className="h-4 w-4" />
-													<span className="sr-only">Abrir/Fechar menu</span>
-												</Button>
-											</DropdownMenuTrigger>
-											<DropdownMenuContent align="end">
-												<DropdownMenuLabel>Ações</DropdownMenuLabel>
-												<DropdownMenuItem
-													onClick={async () => {
-														try {
-															await deleteCategory(category.id);
-															setCategories((prev) => {
-																const newPrev = [...prev];
-																newPrev.splice(i, 1);
-																return newPrev;
-															});
-														} catch (e) {
-															toast({
-																variant: "destructive",
-																description: (e as Error).message,
-																title: "Ops!",
-															});
-														}
-													}}
-												>
-													Deletar
-												</DropdownMenuItem>
-											</DropdownMenuContent>
-										</DropdownMenu>
+										<DeleteCategory index={i} id={category.id} handleCategories={setCategories} />
 									</TableCell>
 								</TableRow>
 							))}

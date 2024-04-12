@@ -15,8 +15,17 @@ import { URI_ID_INVALID_REGEX } from "@/utils/regex";
 import { Dices } from "lucide-react";
 import { formatForURL } from "@/utils/format-for-url";
 
-export default function ProductDetailsCard() {
-	const [uriId, setUriId] = useState("");
+export default function ProductDetailsCard({
+	defaultValue,
+}: {
+	defaultValue?: {
+		uri_id: string;
+		name: string;
+		description: string;
+		keywords: string;
+	} | null;
+}) {
+	const [uriId, setUriId] = useState(defaultValue?.uri_id || "");
 
 	return (
 		<Card x-chunk="dashboard-07-chunk-0">
@@ -37,12 +46,16 @@ export default function ProductDetailsCard() {
 							className="w-full"
 							placeholder="Produto X"
 							required
+							defaultValue={defaultValue?.name}
 						/>
 					</div>
 					<div className="grid gap-3">
 						<Label htmlFor="uri-id">URL do Produto*</Label>
 						<div className="flex focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-ring rounded">
-							<span title="https://essencial-garden.vercel.app/produto/" className="border max-2xs:hidden whitespace-nowrap max-xl:truncate border-r-transparent p-2 rounded-l bg-accent text-sm text-primary/50 px-4">
+							<span
+								title="https://essencial-garden.vercel.app/produto/"
+								className="border max-2xs:hidden whitespace-nowrap max-xl:truncate border-r-transparent p-2 rounded-l bg-accent text-sm text-primary/50 px-4"
+							>
 								https://essencial-garden.vercel.app/produto/
 							</span>
 							<Input
@@ -85,6 +98,7 @@ export default function ProductDetailsCard() {
 						<Label htmlFor="description">Descrição*</Label>
 						<Textarea
 							required
+							defaultValue={defaultValue?.description}
 							id="description"
 							name="description"
 							placeholder="..."
@@ -97,6 +111,7 @@ export default function ProductDetailsCard() {
 							id="keywords"
 							name="keywords"
 							type="text"
+							defaultValue={defaultValue?.keywords}
 							className="w-full"
 							placeholder="Produto X, Produto para ..."
 						/>
