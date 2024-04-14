@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { FOOTER_INFO } from "@/mock/footer-infos";
 import { MEDIAS } from "@/mock/medias";
-import { rgbDataURL } from "@/utils/rgb-to-data-url";
+import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,7 +67,7 @@ export default function Page() {
 									src="/product-placeholder.webp"
 									alt="placeholder"
 									placeholder="blur"
-									blurDataURL={rgbDataURL(131, 170, 1)}
+									blurDataURL={RGB_GREEN_DATA_URL}
 									width={180}
 									height={256}
 								/>

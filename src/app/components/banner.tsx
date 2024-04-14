@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { rgbDataURL } from "@/utils/rgb-to-data-url";
+import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 
@@ -25,7 +25,7 @@ export const BannerEditContent = (props: {
 };
 
 export const Banner = ({
-	blurDataURL = rgbDataURL(131, 170, 1),
+	blurDataURL = RGB_GREEN_DATA_URL,
 	edit = true,
 	children,
 	...props

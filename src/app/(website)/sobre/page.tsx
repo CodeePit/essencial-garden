@@ -1,6 +1,6 @@
 import { Banner } from "@/app/components/banner";
 import AboutBackgroundImage from "@/assets/about-background.webp";
-import { rgbDataURL } from "@/utils/rgb-to-data-url";
+import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { MissionVisionValues } from "../components/mission-vision-values";
@@ -48,7 +48,7 @@ export default function Page() {
 					src="/placeholder.svg"
 					alt="placeholder"
 					placeholder="blur"
-					blurDataURL={rgbDataURL(131, 170, 1)}
+					blurDataURL={RGB_GREEN_DATA_URL}
 					className="w-full"
 					width={1920}
 					height={720}
@@ -61,7 +61,7 @@ export default function Page() {
 					sizes="100vw"
 					alt=""
 					placeholder="blur"
-					blurDataURL={rgbDataURL(235, 238, 233)}
+					blurDataURL={RGB_GRAY_DATA_URL}
 					className="object-cover w-full h-full absolute top-0 left-0 z-0 object-right-top"
 				/>
 

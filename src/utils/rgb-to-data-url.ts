@@ -11,3 +11,6 @@ export const rgbDataURL = (r: number, g: number, b: number) =>
 	`data:image/gif;base64,R0lGODlhAQABAPAA${
 		triplet(0, r, g) + triplet(b, 255, 255)
 	}/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`;
+
+export const RGB_GREEN_DATA_URL = rgbDataURL(131, 170, 1);
+export const RGB_GRAY_DATA_URL = rgbDataURL(235, 238, 233);

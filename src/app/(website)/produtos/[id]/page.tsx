@@ -6,7 +6,7 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import { rgbDataURL } from "@/utils/rgb-to-data-url";
+import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { SalesTeam } from "../../components/sales-team";
@@ -48,7 +48,7 @@ export default function Page({ params }: Props) {
 										src="/product-placeholder.webp"
 										alt="placeholder"
 										placeholder="blur"
-										blurDataURL={rgbDataURL(131, 170, 1)}
+										blurDataURL={RGB_GREEN_DATA_URL}
 										className="w-auto !h-[380px] mx-auto object-cover"
 										width={180}
 										height={256}

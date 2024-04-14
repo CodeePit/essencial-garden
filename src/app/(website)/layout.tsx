@@ -4,11 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FOOTER_INFO } from "@/mock/footer-infos";
 import { MEDIAS } from "@/mock/medias";
-import { cn } from "@/utils/cn";
 import { Menu } from "lucide-react";
-import { headers } from "next/headers";
 import Link from "next/link";
 import { NavLink } from "./components/nav-link";
+import { sendSubscription } from "./actions";
 
 const LINKS = [
 	{ href: "/sobre", label: "Quem somos" },
@@ -22,11 +21,7 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const headersList = headers();
-
-	async function sendSubscription(formData: FormData) {
-		"use server";
-	}
+	
 
 	return (
 		<>

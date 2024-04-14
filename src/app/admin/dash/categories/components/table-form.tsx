@@ -76,7 +76,7 @@ export const TableForm = (props: {
 						<TableHeader>
 							<TableRow>
 								<TableHead className="w-24">ID</TableHead>
-								<TableHead className="2xs:table-cell hidden">Nome</TableHead>
+								<TableHead>Nome</TableHead>
 								<TableHead>
 									<span className="sr-only">Ações</span>
 								</TableHead>

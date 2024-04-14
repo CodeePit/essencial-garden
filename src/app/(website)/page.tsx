@@ -9,7 +9,7 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Dialog } from "@/components/ui/dialog";
-import { rgbDataURL } from "@/utils/rgb-to-data-url";
+import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,7 +74,7 @@ export default function Home() {
 										src="/product-placeholder.webp"
 										alt="placeholder"
 										placeholder="blur"
-										blurDataURL={rgbDataURL(131, 170, 1)}
+										blurDataURL={RGB_GREEN_DATA_URL}
 										width={180}
 										height={256}
 									/>
