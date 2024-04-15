@@ -50,22 +50,10 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/admin/ui/alert-dialog";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 import { deleteProduct } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/admin/ui/label";
-
-export type Product = {
-	id: string;
-	name: string;
-	status: string;
-	images: string[];
-	created_at: string;
-	category: {
-		id: string;
-		name: string;
-	};
-};
+import { Product } from "@/services/queries";
 
 export const columns: ColumnDef<Product>[] = [
 	{
