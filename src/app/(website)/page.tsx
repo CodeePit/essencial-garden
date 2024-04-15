@@ -13,12 +13,13 @@ import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Banner, BannerEditContent, BannerTrigger } from "../components/banner";
+import { Banner, BannerTrigger } from "../components/banner";
 import { MissionVisionValues } from "./components/mission-vision-values";
 import { SalesTeam } from "./components/sales-team";
 import { getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { cookies } from "next/headers";
+import { BannerEditContent } from "../components/baner-edit-content";
 
 export const metadata: Metadata = {
   title: "Essencial Garden | Início",
@@ -40,7 +41,7 @@ export default async function Home() {
     <>
       <section>
         <Dialog>
-          <BannerEditContent />
+          <BannerEditContent multiple />
           <Carousel className="w-full">
             <BannerTrigger />
             <CarouselContent>
@@ -61,57 +62,59 @@ export default async function Home() {
         </Button>
       </section>
 
-      <section className="relative mt-10">
-        <Image
-          src={ProductsBackgroundImage}
-          sizes="100vw"
-          alt=""
-          placeholder="blur"
-          blurDataURL={rgbDataURL(235, 238, 233)}
-          className="object-cover w-full h-full absolute top-0 left-0 z-0 object-top"
-        />
+      <div className="overflow-hidden">
+        <section className="relative mt-10">
+          <Image
+            src={ProductsBackgroundImage}
+            sizes="100vw"
+            alt=""
+            placeholder="blur"
+            blurDataURL={rgbDataURL(235, 238, 233)}
+            className="object-cover w-full h-full absolute top-0 left-0 z-0 object-top"
+          />
 
-        <div className="relative py-10 text-center space-y-8">
-          <h2 className="text-4xl font-bold text-secondary">Nossos Produtos</h2>
-          <Carousel className="max-w-screen-xl mx-auto">
-            <CarouselContent>
-              {products.map((product) => (
-                <CarouselItem
-                  key={product.id}
-                  className="w-fit items-center flex flex-col space-y-4 lg:basis-1/5 md:basis-1/3 sm:basis-1/2"
-                >
-                  <div className="h-64 w-48">
-                    <Image
-                      src={supabase.storage.from("products").getPublicUrl(`${product.id}/${product.images[0]}.webp`).data.publicUrl}
-                      alt="placeholder"
-                      placeholder="blur"
-                      blurDataURL={RGB_GREEN_DATA_URL}
-                      className="w-full h-full object-fill"
-                      width={192}
-                      height={256}
-                    />
-                  </div>
-                  <h3 className="text-xl font-bold text-secondary">
-                    {product.name}
-                  </h3>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious
-              variant="ghost"
-              className="-left-12 [&>.icon]:text-secondary/80 hover:[&>.icon]:!text-secondary"
-            />
-            <CarouselNext
-              variant="ghost"
-              className="-right-12 [&>.icon]:text-secondary/80 hover:[&>.icon]:!text-secondary"
-            />
-          </Carousel>
-          <Button variant="secondary" className="mt-2 lg:!mb-3 !mb-14" asChild>
-            <Link href="/produtos">Conheça mais produtos »</Link>
-          </Button>
-        </div>
-      </section>
-      <SalesTeam />
+          <div className="relative py-10 text-center space-y-8">
+            <h2 className="text-4xl font-bold text-secondary">Nossos Produtos</h2>
+            <Carousel className="max-w-screen-xl mx-auto">
+              <CarouselContent>
+                {products.map((product) => (
+                  <CarouselItem
+                    key={product.id}
+                    className="w-fit items-center flex flex-col space-y-4 lg:basis-1/5 md:basis-1/3 sm:basis-1/2"
+                  >
+                    <div className="h-64 w-48">
+                      <Image
+                        src={supabase.storage.from("products").getPublicUrl(`${product.id}/${product.images[0]}.webp`).data.publicUrl}
+                        alt="placeholder"
+                        placeholder="blur"
+                        blurDataURL={RGB_GREEN_DATA_URL}
+                        className="w-full h-full object-fill"
+                        width={192}
+                        height={256}
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold text-secondary">
+                      {product.name}
+                    </h3>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious
+                variant="ghost"
+                className="-left-12 [&>.icon]:text-secondary/80 hover:[&>.icon]:!text-secondary"
+              />
+              <CarouselNext
+                variant="ghost"
+                className="-right-12 [&>.icon]:text-secondary/80 hover:[&>.icon]:!text-secondary"
+              />
+            </Carousel>
+            <Button variant="secondary" className="mt-2 lg:!mb-3 !mb-14" asChild>
+              <Link href="/produtos">Conheça mais produtos »</Link>
+            </Button>
+          </div>
+        </section>
+        <SalesTeam />
+      </div>
     </>
   );
 }

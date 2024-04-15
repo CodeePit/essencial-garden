@@ -53,7 +53,7 @@ import {
 import { deleteProduct } from "../actions";
 import { useToast } from "@/components/ui/use-toast";
 import { Label } from "@/components/admin/ui/label";
-import { Product } from "@/services/queries";
+import type { Product } from "@/services/queries";
 
 export const columns: ColumnDef<Product>[] = [
 	{

@@ -8,6 +8,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { NavLink } from "./components/nav-link";
 import { sendSubscription } from "./actions";
+import { Providers } from "./providers";
 
 const LINKS = [
 	{ href: "/sobre", label: "Quem somos" },
@@ -24,7 +25,7 @@ export default function RootLayout({
 	
 
 	return (
-		<>
+		<Providers>
 			<header className="sticky top-0 z-50 bg-background">
 				<div className="h-2 w-full bg-thirdly" />
 				<div className="py-8 max-w-screen-xl mx-auto justify-center lg:justify-between items-end flex px-4">
@@ -65,7 +66,7 @@ export default function RootLayout({
 					</Sheet>
 				</div>
 			</header>
-			<main className="w-full h-full overflow-x-hidden bg-primary/5">
+			<main className="w-full h-full bg-primary/5">
 				{children}
 			</main>
 			<footer className="">
@@ -254,6 +255,6 @@ export default function RootLayout({
 					</svg>
 				</section>
 			</footer>
-		</>
+		</Providers>
 	);
 }

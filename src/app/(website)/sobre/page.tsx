@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { MissionVisionValues } from "../components/mission-vision-values";
 import { AboutVideo } from "./components/video";
+import { createClient } from "@/services/supabase/server";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Produtos",
@@ -13,10 +15,13 @@ export const metadata: Metadata = {
 	keywords: "Essencial Garden, Produtos, Plantas, Cuidado com as plantas",
 };
 
-export default function Page() {
+export default async function Page() {
+	const supabase = createClient(cookies());
+	const user = await supabase.auth.getUser();
+
 	return (
 		<>
-			<Banner src="/placeholder.svg" alt="placeholder" />
+			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
 
 			<section className="mt-10 grid lg:grid-cols-2 max-lg:text-center items-center gap-12 max-w-screen-xl px-4 mx-auto">
 				<p className="w-full">
@@ -70,7 +75,7 @@ export default function Page() {
 					<AboutVideo />
 				</div>
 			</section>
-			<Banner src="/placeholder.svg" alt="placeholder" />
+			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
 		</>
 	);
 }

@@ -8,27 +8,10 @@ import {
 import { Progress } from "@/components/admin/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/utils/cn";
+import { FileItem, handleUpload } from "@/services/upload-file";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
-
-export type FileItem = File & { id?: string; src?: string };
-
-export function isFileTypeAccepted(accept: string, fileType: string) {
-	if (accept.includes("*/*")) return true;
-
-	const fileTypeFormatted = fileType.replace("jpg", "jpeg");
-	const acceptTypes = accept.split(",").map((type) => type.trim());
-
-	for (const type of acceptTypes) {
-		if (type === fileTypeFormatted) return true;
-		if (type.endsWith("*") && type.startsWith(fileTypeFormatted.split("/")[0]))
-			return true;
-		if (type.endsWith(fileTypeFormatted.split("/")[1])) return true;
-	}
-	return false;
-}
 
 export default function ProductImagesCard({
 	defaultImages,
@@ -46,63 +29,15 @@ export default function ProductImagesCard({
 		defaultImages || [],
 	);
 
+	const uploadOptions = {
+		files,
+		handleFiles: setFiles,
+		toast,
+	}
+
 	useEffect(() => {
 		onChange(files);
 	}, [files, onChange]);
-
-	const handleUpload = (
-		newFiles: File[],
-		multipleOrIndex: boolean | number = true,
-	) => {
-		const isIndex = typeof multipleOrIndex === "number";
-
-		if (files.length >= 10 && !isIndex)
-			return toast({
-				title: "Opa!",
-				description: "Você só pode adicionar até 10 imagens.",
-			});
-
-		const filesMax = newFiles as FileItem[];
-		console.log(filesMax);
-
-		const filesMaxFiltered =
-			"image/*" &&
-			filesMax.filter((file: File) =>
-				isFileTypeAccepted(
-					"image/*",
-					file.type.length ? file.type : `unknown/${file.name.split(".")[1]}`,
-				),
-			);
-
-		filesMaxFiltered.splice(10 - files.length + (isIndex ? 1 : 0));
-
-		if (filesMax?.length) {
-			setFiles((prev) => {
-				const newFilesMax =
-					isIndex || multipleOrIndex
-						? filesMaxFiltered || filesMax
-						: [filesMaxFiltered[0] || filesMax[0]];
-
-				if (isIndex) {
-					const newPrev = [...prev];
-					newPrev[0] = newFilesMax.map((file) => {
-						file.id = uuid();
-						file.src = URL.createObjectURL(file);
-						return file;
-					})[0];
-					return newPrev;
-				}
-
-				return prev.concat(
-					newFilesMax.map((file) => {
-						file.id = uuid();
-						file.src = URL.createObjectURL(file);
-						return file;
-					}),
-				);
-			});
-		}
-	};
 
 	return (
 		<Card
@@ -139,7 +74,7 @@ export default function ProductImagesCard({
 								ev.stopPropagation();
 
 								const file = ev.dataTransfer.files.item(0);
-								if (file) handleUpload([file], 0);
+								if (file) handleUpload([file], 0, uploadOptions);
 							}}
 						/>
 							<input
@@ -149,7 +84,7 @@ export default function ProductImagesCard({
 								hidden
 								onChange={(ev) => {
 									const file = ev.target.files?.item(0)
-									file && handleUpload([file], 0);
+									file && handleUpload([file], 0, uploadOptions);
 									ev.target.value = "";
 								}}
 							/>
@@ -166,7 +101,7 @@ export default function ProductImagesCard({
 							const files = ev.dataTransfer.files
 								? Array.from(ev.dataTransfer.files)
 								: [];
-							handleUpload(files, true);
+							handleUpload(files, true, uploadOptions);
 						}}
 					>
 						{files.map((file, i) =>
@@ -229,7 +164,7 @@ export default function ProductImagesCard({
 								onFocus={() => document.getElementById("upload-input")?.focus()}
 								required={files.length === 0}
 								onChange={(ev) => {
-									ev.target.files && handleUpload(Array.from(ev.target.files));
+									ev.target.files && handleUpload(Array.from(ev.target.files), true, uploadOptions);
 									ev.target.value = "";
 								}}
 							/>

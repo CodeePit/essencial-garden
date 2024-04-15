@@ -2,7 +2,9 @@ import { Banner } from "@/app/components/banner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Catálogo",
@@ -10,10 +12,13 @@ export const metadata: Metadata = {
 	keywords: "Essencial Garden, Catálogo, Produtos, Especificações, Benefícios",
 };
 
-export default function Page() {
+export default async function Page() {
+	const supabase = createClient(cookies());
+	const user = await supabase.auth.getUser();
+
 	return (
 		<>
-			<Banner src="/placeholder.svg" alt="placeholder" />
+			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
 
 			<section className="mt-10 mb-12 max-md:items-center flex justify-between max-w-screen-xl mx-auto gap-8 max-md:flex-col px-4">
 				<div className="max-w-sm space-y-7 max-md:text-center">

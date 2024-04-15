@@ -11,6 +11,7 @@ export const getCategories = cache(
       .from("categories")
       .select("*")
       .range(pagination.skip, pagination.take);
+
     if (error) return [];
     return data;
   }
@@ -58,6 +59,7 @@ export const getProducts = cache(
 			products = options.filters(products);
 		}
 
+    console.log(options.skip, options.take)
     const { data, error } = await products.range(options.skip, options.take);
 
     if (error || !data) return [];

@@ -39,17 +39,17 @@ export const AboutVideo = () => {
 					<path
 						d="M28.4104 53.8206C42.444 53.8206 53.8207 42.4439 53.8207 28.4103C53.8207 14.3766 42.444 3 28.4104 3C14.3766 3 3 14.3766 3 28.4103C3 42.4439 14.3766 53.8206 28.4104 53.8206Z"
 						stroke="white"
-						stroke-width="4.74299"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeWidth="4.74299"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					/>
 					<path
 						d="M20.2031 28.9943V24.7508C20.2031 19.4654 23.9385 17.3055 28.5123 19.9482L32.1968 22.0826L35.8813 24.2171C40.4552 26.8598 40.4552 31.1796 35.8813 33.8222L32.1968 35.9567L28.5123 38.0912C23.9385 40.7338 20.2031 38.574 20.2031 33.2886V28.9943Z"
 						stroke="white"
-						stroke-width="4.74299"
-						stroke-miterlimit="10"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeWidth="4.74299"
+						strokeMiterlimit="10"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					/>
 				</svg>
 			</button>

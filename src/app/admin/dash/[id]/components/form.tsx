@@ -1,12 +1,11 @@
 "use client";
-import type { FileItem } from "./product-images-card";
-import { createClient, uploadFile } from "@/services/supabase";
+import { createClient } from "@/services/supabase";
 import { useToast } from "@/components/ui/use-toast";
-import { imageConversion } from "@/utils/image-conversion";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { handleProduct } from "../actions";
 import { FormItems } from "./form-items";
+import { FileItem, handleUploadProductImages } from "@/services/upload-file";
 
 export const Form = ({
 	product,
@@ -31,52 +30,6 @@ export const Form = ({
 
 	const { toast } = useToast();
 	const [images, setImages] = useState<(FileItem | string)[]>([]);
-
-	async function handleUploadProductImages(
-		id: string,
-		files: (FileItem | string)[],
-	) {
-		const session = await supabase.auth.getSession();
-		if (!session.data.session?.access_token || session.error) {
-			toast({
-				variant: "destructive",
-				title: "Ops!",
-				description: "Ocorreu um erro ao salvar seu produto.",
-			});
-			return;
-		}
-
-		return Promise.all(
-			files.map(async (file) => {
-				if (typeof file === "string") return true;
-
-				const imageWebp = await imageConversion(file, {
-					quality: 0.8,
-					scale: 0.75,
-				});
-
-				const path = await uploadFile(
-					"products",
-					`${id}/${file.id}.webp`,
-					imageWebp,
-					{
-						upsert: true,
-						contentType: "image/webp",
-						access_token: session.data.session?.access_token || "",
-						onProgress: setUploadPercentage,
-					},
-				)
-					.then((path) => path)
-					.catch(() => null);
-
-				if (!path) {
-					return false;
-				}
-
-				return true;
-			}),
-		);
-	}
 
 	return (
 		<form
@@ -131,6 +84,11 @@ export const Form = ({
 					const uploadSuccessStatus = await handleUploadProductImages(
 						res,
 						images,
+						{
+							handleUploadPercentage: setUploadPercentage,
+							toast,
+							access_token: (await supabase.auth.getSession()).data.session?.access_token
+						}
 					);
 					if (uploadSuccessStatus?.some((status) => !status)) {
 						toast({
