@@ -2,6 +2,7 @@ import { Banner } from "@/app/components/banner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -15,10 +16,22 @@ export const metadata: Metadata = {
 export default async function Page() {
 	const supabase = createClient(cookies());
 	const user = await supabase.auth.getUser();
+	const banners = await getBanners(supabase, "contato");
 
 	return (
 		<>
-			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
+			<Banner
+				title={banners[0]?.title || ""}
+				src={
+					banners.length ? supabase.storage
+						.from("banners")
+						.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`).data
+						.publicUrl : '/placeholder.svg'
+				}
+				alt=""
+				edit={!!user.data.user?.id}
+				multiple={false}
+			/>
 
 			<section className="mt-10 mb-12 max-md:items-center flex justify-between max-w-screen-xl mx-auto gap-8 max-md:flex-col px-4">
 				<div className="max-w-sm space-y-7 max-md:text-center">

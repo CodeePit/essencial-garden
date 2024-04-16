@@ -10,29 +10,46 @@ import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { SalesTeam } from "../../components/sales-team";
-import SpecificationsBackgroundImage from '@/assets/specifications-background.webp';
+import SpecificationsBackgroundImage from "@/assets/specifications-background.webp";
+import { getProduct } from "@/services/queries";
+import { cookies, headers } from "next/headers";
+import { createClient } from "@/services/supabase/server";
+import { notFound } from "next/navigation";
+import { sanitizeHTML } from "@/utils/sanitize-html";
 
 type Props = { params: { id: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const id = params.id;
+	const host = headers().get("x-url-host");
+	const supabase = createClient(cookies());
+	const product = await getProduct(supabase, undefined, params.id);
+
+	if (!product) return {};
 
 	return {
-		title: "",
-		description: "",
-		keywords: "",
+		title: product.name,
+		description: product.description,
+		keywords: product.keywords || "",
 		openGraph: {
 			type: "website",
-			url: `https://.../${id}`,
-			images: [],
-			description: "",
+			url: `https://${host}/produtos/${product.uri_id}`,
+			images: product.images.map(
+				(image) =>
+					supabase.storage
+						.from("products")
+						.getPublicUrl(`${product.id}/${image}.webp`).data.publicUrl,
+			),
+			description: product.description,
 			siteName: "Essencial Garden",
 		},
 	};
 }
 
-export default function Page({ params }: Props) {
-	const product = {};
+export default async function Page({ params }: Props) {
+	const supabase = createClient(cookies());
+	const product = await getProduct(supabase, undefined, params.id);
+
+	if (!product) notFound();
 
 	return (
 		<>
@@ -42,11 +59,16 @@ export default function Page({ params }: Props) {
 				<div className="bg-white p-12 max-h-[490px] aspect-square rounded-xl shadow-xl">
 					<Carousel>
 						<CarouselContent>
-							{Array.from({ length: 5 }).map((_, index) => (
-								<CarouselItem key={index.toString()} className="w-auto h-full">
+							{product.images.map((image) => (
+								<CarouselItem key={image} className="w-auto h-full">
 									<Image
-										src="/product-placeholder.webp"
-										alt="placeholder"
+										src={
+											supabase.storage
+												.from("products")
+												.getPublicUrl(`${product.id}/${image}.webp`).data
+												.publicUrl
+										}
+										alt=""
 										placeholder="blur"
 										blurDataURL={RGB_GREEN_DATA_URL}
 										className="w-auto !h-[380px] mx-auto object-cover"
@@ -69,60 +91,52 @@ export default function Page({ params }: Props) {
 				</div>
 
 				<div className="lg:max-w-lg space-y-10">
-					<h1 className="font-bold text-4xl text-secondary">Nome Produto</h1>
-					<p>
-						Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-						nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-						Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-						nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-						<br />
-						<br />
-						Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-						nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-					</p>
+					<h1 className="font-bold text-4xl text-secondary">{product.name}</h1>
+					<p
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+						dangerouslySetInnerHTML={{
+							__html: sanitizeHTML(
+								product.description.replaceAll("\n", "<br />"),
+							),
+						}}
+					/>
 				</div>
 			</section>
 
-			<section className="pt-20 pb-32 md:pt-20 md:pb-52 mt-20 px-4 relative">
-				<Image
-					src={SpecificationsBackgroundImage}
-					sizes="100vw"
-					alt=""
-					placeholder="blur"
-					blurDataURL={rgbDataURL(235, 238, 233)}
-					className="object-cover w-full h-full absolute top-0 left-0 z-0 object-top"
-				/>
+			<div className="overflow-x-hidden">
+				<section className="pt-20 pb-32 md:pt-20 md:pb-52 mt-20 px-4 relative">
+					<Image
+						src={SpecificationsBackgroundImage}
+						sizes="100vw"
+						alt=""
+						placeholder="blur"
+						blurDataURL={rgbDataURL(235, 238, 233)}
+						className="object-cover w-full h-full absolute top-0 left-0 z-0 object-top"
+					/>
 
-				<div className="max-w-screen-xl mx-auto relative">
-					<h2 className="font-bold text-2xl text-secondary">
-						Características do Produto
-					</h2>
-					<ul className="mt-10 grid md:grid-cols-2 gap-4">
-						<li className="max-w-md">
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-							nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-							nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-						</li>
-						<li className="max-w-md">
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-							nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-							nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-						</li>
-						<li className="max-w-md">
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-							nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-						</li>
-						<li className="max-w-md">
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-							nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam.
-						</li>
-					</ul>
-				</div>
-			</section>
+					<div className="max-w-screen-xl mx-auto relative">
+						<h2 className="font-bold text-2xl text-secondary">
+							Características do Produto
+						</h2>
+						<ul className="mt-10 grid md:grid-cols-2 gap-4">
+							{product.features.map((feat, i) => (
+								<li
+									key={i.toString()}
+									className="max-w-md"
+									// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+									dangerouslySetInnerHTML={{
+										__html: sanitizeHTML(
+											product.description.replaceAll("\n", "<br />"),
+										),
+									}}
+								/>
+							))}
+						</ul>
+					</div>
+				</section>
 
-			<SalesTeam />
+				<SalesTeam />
+			</div>
 		</>
 	);
 }

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { handleProduct } from "../actions";
 import { FormItems } from "./form-items";
-import { FileItem, handleUploadProductImages } from "@/services/upload-file";
+import { FileItem, handleUploadImages } from "@/services/upload-file";
 
 export const Form = ({
 	product,
@@ -81,7 +81,8 @@ export const Form = ({
 
 				try {
 					const res = await handleProduct(product?.id, new_product);
-					const uploadSuccessStatus = await handleUploadProductImages(
+					const uploadSuccessStatus = await handleUploadImages(
+						'products',
 						res,
 						images,
 						{

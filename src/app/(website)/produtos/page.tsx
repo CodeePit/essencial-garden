@@ -1,16 +1,10 @@
-import { Banner } from "@/app/components/banner";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Separator } from "@/components/ui/separator";
-import { getCategories, getProducts } from "@/services/queries";
+import { getBanners, getCategories } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
-import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
 import { Categories } from "./components/categories";
 import { Products } from "./components/products";
+import { Banner } from "@/app/components/banner";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Contato",
@@ -33,10 +27,22 @@ export default async function Page(props: PageProps) {
 		take: 10,
 	});
 	const user = await supabase.auth.getUser();
+	const banners = await getBanners(supabase, "produtos");
 
 	return (
 		<>
-			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
+			<Banner
+				title={banners[0]?.title || ""}
+				src={
+					banners.length ? supabase.storage
+						.from("banners")
+						.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`).data
+						.publicUrl : '/placeholder.svg'
+				}
+				alt=""
+				edit={!!user.data.user?.id}
+				multiple={false}
+			/>
 
 			<section className="mt-10 pb-32 max-md:justify-center items-center flex flex-col max-w-screen-xl mx-auto px-4">
 				<h1 className="font-bold text-4xl text-secondary text-center">

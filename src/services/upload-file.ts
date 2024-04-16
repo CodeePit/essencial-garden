@@ -26,6 +26,7 @@ export function handleUpload(
     files: (FileItem | string)[];
     toast: (opts: { title: string; description: string }) => void;
     handleFiles: React.Dispatch<React.SetStateAction<(FileItem | string)[]>>;
+    onNewFilesUploaded?: (index: number | null, files: FileItem[]) => void;
   }
 ) {
   const isIndex = typeof multipleOrIndex === "number";
@@ -50,40 +51,41 @@ export function handleUpload(
   filesMaxFiltered.splice(10 - options.files.length + (isIndex ? 1 : 0));
 
   if (filesMax?.length) {
-    options.handleFiles((prev) => {
-      const newFilesMax =
-        isIndex || multipleOrIndex
-          ? filesMaxFiltered || filesMax
-          : [filesMaxFiltered[0] || filesMax[0]];
+    const newFilesMax = (
+      (isIndex ? false : multipleOrIndex)
+        ? filesMaxFiltered || filesMax
+        : [filesMaxFiltered[0] || filesMax[0]]
+    ).map((file) => {
+      file.id = uuid();
+      file.src = URL.createObjectURL(file);
+      return file;
+    });
 
+    options.onNewFilesUploaded?.(isIndex ? multipleOrIndex : null, newFilesMax);
+    options.handleFiles((prev) => {
       if (isIndex) {
         const newPrev = [...prev];
-        newPrev[0] = newFilesMax.map((file) => {
-          file.id = uuid();
-          file.src = URL.createObjectURL(file);
-          return file;
-        })[0];
+        newPrev[multipleOrIndex] = newFilesMax[0];
+
         return newPrev;
       }
 
-      return prev.concat(
-        newFilesMax.map((file) => {
-          file.id = uuid();
-          file.src = URL.createObjectURL(file);
-          return file;
-        })
-      );
+      return prev.concat(newFilesMax);
     });
   }
 }
 
-
-export async function handleUploadProductImages(
+export async function handleUploadImages(
+  bucket: string,
   id: string,
   files: (FileItem | string)[],
   options: {
     access_token?: string;
-    toast: (opts: { title: string; description: string; variant?: "default" | "destructive" | null | undefined }) => void;
+    toast: (opts: {
+      title: string;
+      description: string;
+      variant?: "default" | "destructive" | null | undefined;
+    }) => void;
     handleUploadPercentage: React.Dispatch<React.SetStateAction<number>>;
   }
 ) {
@@ -106,7 +108,7 @@ export async function handleUploadProductImages(
       });
 
       const path = await uploadFile(
-        "products",
+        bucket,
         `${id}/${file.id}.webp`,
         imageWebp,
         {
@@ -114,7 +116,7 @@ export async function handleUploadProductImages(
           contentType: "image/webp",
           access_token: options.access_token || "",
           onProgress: options.handleUploadPercentage,
-        },
+        }
       )
         .then((path) => path)
         .catch(() => null);
@@ -124,6 +126,6 @@ export async function handleUploadProductImages(
       }
 
       return true;
-    }),
+    })
   );
 }

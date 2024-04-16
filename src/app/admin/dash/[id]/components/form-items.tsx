@@ -6,8 +6,9 @@ import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/admin/ui/badge";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
-import ProductImagesCard, { type FileItem } from "./product-images-card";
+import ProductImagesCard from "./product-images-card";
 import { createClient } from "@/services/supabase";
+import type { FileItem } from "@/services/upload-file";
 
 export const FormItems = ({
 	uploadPercentage,

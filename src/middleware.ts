@@ -16,6 +16,7 @@ function rewrite(request: NextRequest, pathname: string) {
 export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-url-pathname", request.nextUrl.pathname);
+  requestHeaders.set("x-url-host", request.nextUrl.host);
 
   const { supabase, response } = createClient(request, requestHeaders);
 

@@ -1,4 +1,3 @@
-import { Banner } from "@/app/components/banner";
 import AboutBackgroundImage from "@/assets/about-background.webp";
 import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
@@ -7,6 +6,8 @@ import { MissionVisionValues } from "../components/mission-vision-values";
 import { AboutVideo } from "./components/video";
 import { createClient } from "@/services/supabase/server";
 import { cookies } from "next/headers";
+import { Banner } from "@/app/components/banner";
+import { getBanners } from "@/services/queries";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Produtos",
@@ -18,10 +19,23 @@ export const metadata: Metadata = {
 export default async function Page() {
 	const supabase = createClient(cookies());
 	const user = await supabase.auth.getUser();
+	const banners = await getBanners(supabase, "sobre");
+	const banners2 = await getBanners(supabase, "sobre-2");
 
 	return (
 		<>
-			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
+			<Banner
+				title={banners[0]?.title || ""}
+				src={
+					banners.length ? supabase.storage
+						.from("banners")
+						.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`).data
+						.publicUrl : '/placeholder.svg'
+				}
+				alt=""
+				edit={!!user.data.user?.id}
+				multiple={false}
+			/>
 
 			<section className="mt-10 grid lg:grid-cols-2 max-lg:text-center items-center gap-12 max-w-screen-xl px-4 mx-auto">
 				<p className="w-full">
@@ -75,7 +89,19 @@ export default async function Page() {
 					<AboutVideo />
 				</div>
 			</section>
-			<Banner src="/placeholder.svg" alt="placeholder" edit={!!user.data.user?.id} multiple={false} />
+			<Banner
+				page='sobre-2'
+				title={banners2[0]?.title || ""}
+				src={
+					banners2.length ? supabase.storage
+						.from("banners")
+						.getPublicUrl(`${banners2[0].page}/${banners2[0].banner}.webp`).data
+						.publicUrl : '/placeholder.svg'
+				}
+				alt=""
+				edit={!!user.data.user?.id}
+				multiple={false}
+			/>
 		</>
 	);
 }

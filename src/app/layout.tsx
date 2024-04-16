@@ -1,3 +1,4 @@
+import { GoogleTagManager } from '@next/third-parties/google'
 import { cn } from "@/utils/cn";
 import { Montserrat as FontSans } from "next/font/google";
 import "./globals.css";
@@ -15,6 +16,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pt-BR">
+			<GoogleTagManager gtmId="GTM-TLJN56G5" />
 			<head />
 			<body
 				className={cn(

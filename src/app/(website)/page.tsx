@@ -8,18 +8,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Dialog } from "@/components/ui/dialog";
 import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Banner, BannerTrigger } from "../components/banner";
+import { Banner } from "../components/banner";
 import { MissionVisionValues } from "./components/mission-vision-values";
 import { SalesTeam } from "./components/sales-team";
-import { getProducts } from "@/services/queries";
+import { getBanners, getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { cookies } from "next/headers";
-import { BannerEditContent } from "../components/baner-edit-content";
+import { BannerEditContent } from "../components/banner/baner-edit-content";
 
 export const metadata: Metadata = {
   title: "Essencial Garden | Início",
@@ -36,24 +35,39 @@ export default async function Home() {
     skip: 0,
     take: 10,
   });
+  const banners = await getBanners(supabase, "inicio");
 
   return (
     <>
       <section>
-        <Dialog>
+        <Carousel className="w-full">
           <BannerEditContent multiple />
-          <Carousel className="w-full">
-            <BannerTrigger />
-            <CarouselContent>
-              <CarouselItem>
-                <Banner src="/placeholder.svg" alt="placeholder" edit={false} />
+          <CarouselContent>
+            {(banners.length ? banners : [null]).map((banner) => (
+              <CarouselItem key={banner ? banner.id : 'placeholder'}>
+                <Banner
+                  src={
+                    banner ? supabase.storage
+                      .from("banners")
+                      .getPublicUrl(`${banner?.page}/${banner?.banner}.webp`).data
+                      .publicUrl : '/placeholder.svg'
+                  }
+                  className="text-center"
+                  alt=""
+                  title={banner?.title || ''}
+                  edit={false}
+                >
+                  <Button asChild className="w-fit mt-4 self-center whitespace-normal max-sm:h-auto">
+                    <Link href="/produtos">CONHEÇA NOSSOS PRODUTOS » </Link>
+                  </Button>
+                </Banner>
               </CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious variant="ghost" />
-            <CarouselNext variant="ghost" />
-            <CarouselDots />
-          </Carousel>
-        </Dialog>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious variant="ghost" />
+          <CarouselNext variant="ghost" />
+          <CarouselDots />
+        </Carousel>
       </section>
       <section className="max-w-screen-xl mx-auto mt-10 p-2 text-center space-y-12">
         <MissionVisionValues />
@@ -74,7 +88,9 @@ export default async function Home() {
           />
 
           <div className="relative py-10 text-center space-y-8">
-            <h2 className="text-4xl font-bold text-secondary">Nossos Produtos</h2>
+            <h2 className="text-4xl font-bold text-secondary">
+              Nossos Produtos
+            </h2>
             <Carousel className="max-w-screen-xl mx-auto">
               <CarouselContent>
                 {products.map((product) => (
@@ -84,7 +100,13 @@ export default async function Home() {
                   >
                     <div className="h-64 w-48">
                       <Image
-                        src={supabase.storage.from("products").getPublicUrl(`${product.id}/${product.images[0]}.webp`).data.publicUrl}
+                        src={
+                          supabase.storage
+                            .from("products")
+                            .getPublicUrl(
+                              `${product.id}/${product.images[0]}.webp`
+                            ).data.publicUrl
+                        }
                         alt="placeholder"
                         placeholder="blur"
                         blurDataURL={RGB_GREEN_DATA_URL}
@@ -108,7 +130,11 @@ export default async function Home() {
                 className="-right-12 [&>.icon]:text-secondary/80 hover:[&>.icon]:!text-secondary"
               />
             </Carousel>
-            <Button variant="secondary" className="mt-2 lg:!mb-3 !mb-14" asChild>
+            <Button
+              variant="secondary"
+              className="mt-2 lg:!mb-3 !mb-14"
+              asChild
+            >
               <Link href="/produtos">Conheça mais produtos »</Link>
             </Button>
           </div>
