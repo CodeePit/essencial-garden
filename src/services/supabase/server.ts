@@ -1,7 +1,10 @@
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { type CookieOptions, createServerClient } from "@supabase/ssr";
 import type { cookies } from "next/headers";
 
-export const createClient = (cookieStore: ReturnType<typeof cookies>, cache: RequestCache = "force-cache") => {
+export const createClient = (
+	cookieStore: ReturnType<typeof cookies>,
+	cache: RequestCache = "force-cache",
+) => {
 	return createServerClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL || "",
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
@@ -11,10 +14,7 @@ export const createClient = (cookieStore: ReturnType<typeof cookies>, cache: Req
 					fetch(input, {
 						...init,
 						cache,
-						next:
-							cache === "force-cache"
-								? { revalidate: 3600 }
-								: undefined,
+						next: cache === "force-cache" ? { revalidate: 3600 } : undefined,
 					}),
 			},
 			cookies: {

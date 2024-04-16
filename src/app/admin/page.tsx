@@ -4,13 +4,13 @@ import Link from "next/link";
 import { Button } from "@/components/admin/ui/button";
 import { Input } from "@/components/admin/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { login } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
 import { LoaderIcon } from "lucide-react";
+import { useState } from "react";
+import { login } from "./actions";
 
 export default function Page() {
-  const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const { toast } = useToast();
 
 	return (
@@ -22,17 +22,17 @@ export default function Page() {
 					</div>
 					<form
 						action={async (formData) => {
-							setIsLoading(true)
-              try {
+							setIsLoading(true);
+							try {
 								await login(formData);
 							} catch (e) {
 								toast({
 									title: "Ops! Encontramos um Erro.",
-									description: (e as Error).message.replace('Error: ', ''),
+									description: (e as Error).message.replace("Error: ", ""),
 									variant: "destructive",
 								});
-              }
-							setIsLoading(false)
+							}
+							setIsLoading(false);
 						}}
 						className="grid gap-4"
 					>
@@ -57,7 +57,7 @@ export default function Page() {
 							/>
 						</div>
 						<Button type="submit" className="w-full" disabled={isLoading}>
-							{isLoading ? <LoaderIcon className="animate-spin" /> : 'Login'}
+							{isLoading ? <LoaderIcon className="animate-spin" /> : "Login"}
 						</Button>
 
 						<Separator className="bg-border" />

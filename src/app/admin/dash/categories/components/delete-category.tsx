@@ -16,17 +16,17 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from "@/components/admin/ui/dropdown-menu";
-import { MoreHorizontal } from "lucide-react";
-import { deleteCategory } from "../actions";
-import { Label } from "@/components/admin/ui/label";
 import { Input } from "@/components/admin/ui/input";
+import { Label } from "@/components/admin/ui/label";
 import { toast } from "@/components/ui/use-toast";
+import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
+import { deleteCategory } from "../actions";
 
 export const DeleteCategory = ({
 	id,
 	index,
-  handleCategories
+	handleCategories,
 }: {
 	id: string;
 	index: number;
@@ -49,10 +49,7 @@ export const DeleteCategory = ({
 					<DropdownMenuLabel>Actions</DropdownMenuLabel>
 					<AlertDialogTrigger asChild>
 						<DropdownMenuItem>
-							<Button
-								className="w-full h-fit"
-								variant="destructive"
-							>
+							<Button className="w-full h-fit" variant="destructive">
 								Deletar
 							</Button>
 						</DropdownMenuItem>

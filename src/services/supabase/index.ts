@@ -1,9 +1,7 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { Upload } from "tus-js-client";
 
-export const createClient = (
-	cache: RequestCache = "force-cache"
-) => {
+export const createClient = (cache: RequestCache = "force-cache") => {
 	return createBrowserClient(
 		process.env.NEXT_PUBLIC_SUPABASE_URL || "",
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
@@ -13,10 +11,7 @@ export const createClient = (
 					fetch(input, {
 						...init,
 						cache,
-						next:
-							cache === "force-cache"
-								? { revalidate: 3600 }
-								: undefined,
+						next: cache === "force-cache" ? { revalidate: 3600 } : undefined,
 					}),
 			},
 		},

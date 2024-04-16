@@ -9,7 +9,8 @@ import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Catálogo",
-	description: "Explore nossa ampla gama de catálogos técnicos completos. Encontre informações detalhadas sobre nossos produtos e benefícios para sua produção.",
+	description:
+		"Explore nossa ampla gama de catálogos técnicos completos. Encontre informações detalhadas sobre nossos produtos e benefícios para sua produção.",
 	keywords: "Essencial Garden, Catálogo, Produtos, Especificações, Benefícios",
 };
 
@@ -23,10 +24,12 @@ export default async function Page() {
 			<Banner
 				title={banners[0]?.title || ""}
 				src={
-					banners.length ? supabase.storage
-						.from("banners")
-						.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`).data
-						.publicUrl : '/placeholder.svg'
+					banners.length
+						? supabase.storage
+								.from("banners")
+								.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`)
+								.data.publicUrl
+						: "/placeholder.svg"
 				}
 				alt=""
 				edit={!!user.data.user?.id}

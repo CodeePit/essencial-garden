@@ -1,13 +1,13 @@
+import { Banner } from "@/app/components/banner";
 import AboutBackgroundImage from "@/assets/about-background.webp";
+import { getBanners } from "@/services/queries";
+import { createClient } from "@/services/supabase/server";
 import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import { MissionVisionValues } from "../components/mission-vision-values";
 import { AboutVideo } from "./components/video";
-import { createClient } from "@/services/supabase/server";
-import { cookies } from "next/headers";
-import { Banner } from "@/app/components/banner";
-import { getBanners } from "@/services/queries";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Produtos",
@@ -27,10 +27,12 @@ export default async function Page() {
 			<Banner
 				title={banners[0]?.title || ""}
 				src={
-					banners.length ? supabase.storage
-						.from("banners")
-						.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`).data
-						.publicUrl : '/placeholder.svg'
+					banners.length
+						? supabase.storage
+								.from("banners")
+								.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`)
+								.data.publicUrl
+						: "/placeholder.svg"
 				}
 				alt=""
 				edit={!!user.data.user?.id}
@@ -90,13 +92,15 @@ export default async function Page() {
 				</div>
 			</section>
 			<Banner
-				page='sobre-2'
+				page="sobre-2"
 				title={banners2[0]?.title || ""}
 				src={
-					banners2.length ? supabase.storage
-						.from("banners")
-						.getPublicUrl(`${banners2[0].page}/${banners2[0].banner}.webp`).data
-						.publicUrl : '/placeholder.svg'
+					banners2.length
+						? supabase.storage
+								.from("banners")
+								.getPublicUrl(`${banners2[0].page}/${banners2[0].banner}.webp`)
+								.data.publicUrl
+						: "/placeholder.svg"
 				}
 				alt=""
 				edit={!!user.data.user?.id}

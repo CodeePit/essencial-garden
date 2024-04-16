@@ -1,14 +1,13 @@
 "use client";
 
-import * as React from "react";
 import {
+	type ColumnDef,
 	type PaginationState,
+	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	useReactTable,
-	flexRender,
-	type ColumnDef,
 } from "@tanstack/react-table";
 import {
 	ChevronLeft,
@@ -17,29 +16,8 @@ import {
 	ChevronsRight,
 	MoreHorizontal,
 } from "lucide-react";
+import * as React from "react";
 
-import { Button } from "@/components/admin/ui/button";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/admin/ui/dropdown-menu";
-import { Input } from "@/components/admin/ui/input";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/admin/ui/table";
-import Image from "next/image";
-import { Badge } from "@/components/admin/ui/badge";
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
 	AlertDialog,
 	AlertDialogCancel,
@@ -50,10 +28,32 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/admin/ui/alert-dialog";
-import { deleteProduct } from "../actions";
-import { useToast } from "@/components/ui/use-toast";
+import { Badge } from "@/components/admin/ui/badge";
+import { Button } from "@/components/admin/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/admin/ui/dropdown-menu";
+import { Input } from "@/components/admin/ui/input";
 import { Label } from "@/components/admin/ui/label";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/admin/ui/table";
+import { useToast } from "@/components/ui/use-toast";
 import type { Product } from "@/services/queries";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { deleteProduct } from "../actions";
 
 export const columns: ColumnDef<Product>[] = [
 	{
@@ -173,10 +173,7 @@ export const columns: ColumnDef<Product>[] = [
 							<DropdownMenuSeparator />
 							<AlertDialogTrigger asChild>
 								<DropdownMenuItem>
-									<Button
-										className="w-full h-fit"
-										variant="destructive"
-									>
+									<Button className="w-full h-fit" variant="destructive">
 										Deletar
 									</Button>
 								</DropdownMenuItem>

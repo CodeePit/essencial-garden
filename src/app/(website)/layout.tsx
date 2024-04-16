@@ -6,8 +6,8 @@ import { FOOTER_INFO } from "@/mock/footer-infos";
 import { MEDIAS } from "@/mock/medias";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { NavLink } from "./components/nav-link";
 import { sendSubscription } from "./actions";
+import { NavLink } from "./components/nav-link";
 import { Providers } from "./providers";
 
 const LINKS = [
@@ -22,8 +22,6 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	
-
 	return (
 		<Providers>
 			<header className="sticky top-0 z-50 bg-background">
@@ -66,9 +64,7 @@ export default function RootLayout({
 					</Sheet>
 				</div>
 			</header>
-			<main className="w-full h-full bg-primary/5">
-				{children}
-			</main>
+			<main className="w-full h-full bg-primary/5">{children}</main>
 			<footer className="">
 				<section className="text-center bg-primary text-background py-8">
 					<div className="max-w-screen-xl px-4 mx-auto flex items-center space-y-4 flex-col">

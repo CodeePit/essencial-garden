@@ -1,37 +1,38 @@
-'use server';
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
+"use server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-import { createClient } from '@/services/supabase/server'
-import { cookies } from 'next/headers'
+import { createClient } from "@/services/supabase/server";
+import { cookies } from "next/headers";
 
 export async function login(formData: FormData) {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
 
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  }
+	const data = {
+		email: formData.get("email") as string,
+		password: formData.get("password") as string,
+	};
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+	const { error } = await supabase.auth.signInWithPassword(data);
 
-  if (error?.message === 'Invalid login credentials') throw 'E-mail e Senha Inválidos';
+	if (error?.message === "Invalid login credentials")
+		throw "E-mail e Senha Inválidos";
 
-  if (error) {
-    redirect('/')
-  }
+	if (error) {
+		redirect("/");
+	}
 
-  revalidatePath('/admin', 'layout')
-  redirect('/admin/dash')
+	revalidatePath("/admin", "layout");
+	redirect("/admin/dash");
 }
 
 export async function signOut() {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
 
-  await supabase.auth.signOut()
+	await supabase.auth.signOut();
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+	revalidatePath("/", "layout");
+	redirect("/");
 }

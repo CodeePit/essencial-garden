@@ -1,8 +1,8 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { createClient } from "@/services/supabase/server";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 export async function deleteProduct(id: string, name: string) {
 	const cookiesStore = cookies();

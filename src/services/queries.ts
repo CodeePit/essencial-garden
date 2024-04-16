@@ -1,5 +1,5 @@
-import { cache } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 export const getCategories = cache(
 	async (
@@ -49,7 +49,7 @@ export type Product = {
 	};
 };
 type Filter = ReturnType<
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	ReturnType<SupabaseClient<any, "public", any>["from"]>["select"]
 >;
 
@@ -80,7 +80,6 @@ export const getProducts = cache(
 			products = options.filters(products);
 		}
 
-		console.log(options.skip, options.take);
 		const { data, error } = await products.range(options.skip, options.take);
 
 		if (error || !data) return [];
@@ -107,10 +106,20 @@ export const getProduct = cache(
 		ctx: SupabaseClient<any, "public", any>,
 		id?: string,
 		uri_id?: string,
+		options?: {
+			filters?: (ctx: Filter) => Filter;
+		},
 	) => {
-		const { data, error } = id
-			? await ctx.from("products").select("*").eq("id", id).single()
-			: await ctx.from("products").select("*").eq("uri_id", uri_id).single();
+		let product = id
+			? ctx.from("products").select("*").eq("id", id)
+			: ctx.from("products").select("*").eq("uri_id", uri_id);
+
+		if (options?.filters) {
+			product = options.filters(product);
+		}
+
+		const { data, error } = await product.single();
+
 		if (error) return null;
 		return data as Product;
 	},

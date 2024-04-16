@@ -1,8 +1,8 @@
 "use client";
 import { cn } from "@/utils/cn";
-import PlaceholderVideo from "../../../../videos/placeholder.mp4";
 import Video from "next-video";
 import React from "react";
+import PlaceholderVideo from "../../../../videos/placeholder.mp4";
 
 export const AboutVideo = () => {
 	const [paused, setPaused] = React.useState(true);

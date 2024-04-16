@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/admin/ui/button";
 import {
 	Card,
 	CardContent,
@@ -9,11 +10,10 @@ import {
 import { Input } from "@/components/admin/ui/input";
 import { Label } from "@/components/admin/ui/label";
 import { Textarea } from "@/components/admin/ui/textarea";
-import { Button } from "@/components/admin/ui/button";
-import { useEffect, useState } from "react";
+import { formatForURL } from "@/utils/format-for-url";
 import { URI_ID_INVALID_REGEX } from "@/utils/regex";
 import { Dices } from "lucide-react";
-import { formatForURL } from "@/utils/format-for-url";
+import { useEffect, useState } from "react";
 
 export default function ProductDetailsCard({
 	defaultValue,

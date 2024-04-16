@@ -11,6 +11,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
+import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase";
 import {
 	type FileItem,
@@ -21,9 +22,8 @@ import { cn } from "@/utils/cn";
 import { PenLine, Pencil, Upload } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { BannerCard } from "./banner-card";
 import { handleBanners } from "./actions";
-import { getBanners } from "@/services/queries";
+import { BannerCard } from "./banner-card";
 
 export const BannerTrigger = () => {
 	return (

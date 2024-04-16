@@ -1,10 +1,10 @@
+import { Banner } from "@/app/components/banner";
 import { getBanners, getCategories } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { Categories } from "./components/categories";
 import { Products } from "./components/products";
-import { Banner } from "@/app/components/banner";
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Contato",
@@ -19,7 +19,9 @@ interface PageProps {
 }
 
 export default async function Page(props: PageProps) {
-	const categories_checked = props.searchParams.categorias?.split(",").filter((s) => Boolean(s.length));
+	const categories_checked = props.searchParams.categorias
+		?.split(",")
+		.filter((s) => Boolean(s.length));
 
 	const supabase = createClient(cookies());
 	const categories = await getCategories(supabase, {
@@ -34,10 +36,12 @@ export default async function Page(props: PageProps) {
 			<Banner
 				title={banners[0]?.title || ""}
 				src={
-					banners.length ? supabase.storage
-						.from("banners")
-						.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`).data
-						.publicUrl : '/placeholder.svg'
+					banners.length
+						? supabase.storage
+								.from("banners")
+								.getPublicUrl(`${banners[0].page}/${banners[0].banner}.webp`)
+								.data.publicUrl
+						: "/placeholder.svg"
 				}
 				alt=""
 				edit={!!user.data.user?.id}
@@ -54,10 +58,13 @@ export default async function Page(props: PageProps) {
 				<div className="flex max-md:flex-col mt-20 w-full gap-20">
 					<aside className="md:sticky md:h-64 top-64">
 						<h2 className="font-bold text-2xl text-primary">Categorias</h2>
-						<Categories categories={categories} categoriesChecked={categories_checked || []} />
+						<Categories
+							categories={categories}
+							categoriesChecked={categories_checked || []}
+						/>
 					</aside>
 
-					<Products categoriesChecked={categories_checked || []}/>
+					<Products categoriesChecked={categories_checked || []} />
 				</div>
 			</section>
 		</>

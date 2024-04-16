@@ -7,8 +7,8 @@ import {
 } from "@/components/admin/ui/card";
 import { Progress } from "@/components/admin/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
+import { type FileItem, handleUpload } from "@/services/upload-file";
 import { cn } from "@/utils/cn";
-import { FileItem, handleUpload } from "@/services/upload-file";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -33,7 +33,7 @@ export default function ProductImagesCard({
 		files,
 		handleFiles: setFiles,
 		toast,
-	}
+	};
 
 	useEffect(() => {
 		onChange(files);
@@ -50,7 +50,10 @@ export default function ProductImagesCard({
 				<CardTitle>Imagens do Produto</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Progress value={uploadPercentage * 100} className="h-1 mb-4 bg-muted" />
+				<Progress
+					value={uploadPercentage * 100}
+					className="h-1 mb-4 bg-muted"
+				/>
 
 				<div className="grid gap-2">
 					<label htmlFor="upload-banner">
@@ -77,17 +80,17 @@ export default function ProductImagesCard({
 								if (file) handleUpload([file], 0, uploadOptions);
 							}}
 						/>
-							<input
-								type="file"
-								id="upload-banner"
-								accept="image/*"
-								hidden
-								onChange={(ev) => {
-									const file = ev.target.files?.item(0)
-									file && handleUpload([file], 0, uploadOptions);
-									ev.target.value = "";
-								}}
-							/>
+						<input
+							type="file"
+							id="upload-banner"
+							accept="image/*"
+							hidden
+							onChange={(ev) => {
+								const file = ev.target.files?.item(0);
+								file && handleUpload([file], 0, uploadOptions);
+								ev.target.value = "";
+							}}
+						/>
 					</label>
 					<div
 						className="grid grid-cols-3 gap-2"
@@ -164,7 +167,12 @@ export default function ProductImagesCard({
 								onFocus={() => document.getElementById("upload-input")?.focus()}
 								required={files.length === 0}
 								onChange={(ev) => {
-									ev.target.files && handleUpload(Array.from(ev.target.files), true, uploadOptions);
+									ev.target.files &&
+										handleUpload(
+											Array.from(ev.target.files),
+											true,
+											uploadOptions,
+										);
 									ev.target.value = "";
 								}}
 							/>

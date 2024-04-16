@@ -1,11 +1,11 @@
 "use client";
-import { createClient } from "@/services/supabase";
 import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import { createClient } from "@/services/supabase";
+import { type FileItem, handleUploadImages } from "@/services/upload-file";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { handleProduct } from "../actions";
 import { FormItems } from "./form-items";
-import { FileItem, handleUploadImages } from "@/services/upload-file";
 
 export const Form = ({
 	product,
@@ -82,14 +82,15 @@ export const Form = ({
 				try {
 					const res = await handleProduct(product?.id, new_product);
 					const uploadSuccessStatus = await handleUploadImages(
-						'products',
+						"products",
 						res,
 						images,
 						{
 							handleUploadPercentage: setUploadPercentage,
 							toast,
-							access_token: (await supabase.auth.getSession()).data.session?.access_token
-						}
+							access_token: (await supabase.auth.getSession()).data.session
+								?.access_token,
+						},
 					);
 					if (uploadSuccessStatus?.some((status) => !status)) {
 						toast({

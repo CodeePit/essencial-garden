@@ -1,7 +1,7 @@
 import { Button } from "@/components/admin/ui/button";
-import Link from "next/link";
-import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 import { Badge } from "@/components/admin/ui/badge";
 import {
@@ -27,9 +27,9 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/admin/ui/table";
+import { getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { cookies } from "next/headers";
-import { getProducts } from "@/services/queries";
 import { DataTable } from "./components/table-products";
 
 export const revalidate = 0;

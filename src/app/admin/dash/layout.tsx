@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { CircleUser, Menu, Package, Package2, Search, Tag } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import {
 	DropdownMenu,
@@ -12,13 +10,15 @@ import {
 import { Input } from "@/components/admin/ui/input";
 import {
 	Sheet,
+	SheetClose,
 	SheetContent,
 	SheetTrigger,
-	SheetClose,
 } from "@/components/ui/sheet";
-import { signOut } from "../actions";
 import { cn } from "@/utils/cn";
+import { CircleUser, Menu, Package, Package2, Search, Tag } from "lucide-react";
 import { headers } from "next/headers";
+import Link from "next/link";
+import { signOut } from "../actions";
 
 export default function Layout({
 	children,

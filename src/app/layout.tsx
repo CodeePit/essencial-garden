@@ -1,8 +1,8 @@
-import { GoogleTagManager } from '@next/third-parties/google'
+import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/utils/cn";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Montserrat as FontSans } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster"
 
 const fontSans = FontSans({
 	subsets: ["latin"],

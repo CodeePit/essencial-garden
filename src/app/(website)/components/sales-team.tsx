@@ -1,9 +1,9 @@
-import { rgbDataURL } from "@/utils/rgb-to-data-url";
-import Image from "next/image";
 import LeafImage from "@/assets/leaf.webp";
 import SalesTeamBackgroundImage from "@/assets/sales-team-background.webp";
 import SalesTeamPeopleImage from "@/assets/sales-team-people.webp";
 import { Button } from "@/components/ui/button";
+import { rgbDataURL } from "@/utils/rgb-to-data-url";
+import Image from "next/image";
 import Link from "next/link";
 
 export const SalesTeam = () => (

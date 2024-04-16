@@ -1,7 +1,7 @@
 import { getCategories } from "@/services/queries";
-import { TableForm } from "./components/table-form";
 import { createClient } from "@/services/supabase/server";
 import { cookies } from "next/headers";
+import { TableForm } from "./components/table-form";
 
 export default async function Page() {
 	const cookiesStore = cookies();

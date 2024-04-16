@@ -25,10 +25,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/admin/ui/table";
+import { useToast } from "@/components/ui/use-toast";
 import { generateRandomCode } from "@/utils/generate-random-code";
 import { useMemo, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
-import { handleCategory, deleteCategory } from "../actions";
+import { deleteCategory, handleCategory } from "../actions";
 import { DeleteCategory } from "./delete-category";
 
 export const TableForm = (props: {
@@ -183,7 +183,11 @@ export const TableForm = (props: {
 										</form>
 									</TableCell>
 									<TableCell>
-										<DeleteCategory index={i} id={category.id} handleCategories={setCategories} />
+										<DeleteCategory
+											index={i}
+											id={category.id}
+											handleCategories={setCategories}
+										/>
 									</TableCell>
 								</TableRow>
 							))}

@@ -1,20 +1,20 @@
-import ProductDetailsCard from "./product-details-card";
-import ProductCategoryCard from "./product-category-card";
-import ProductStatusCard from "./product-status-card";
-import { Button } from "@/components/admin/ui/button";
-import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/admin/ui/badge";
-import Link from "next/link";
-import { useFormStatus } from "react-dom";
-import ProductImagesCard from "./product-images-card";
+import { Button } from "@/components/admin/ui/button";
 import { createClient } from "@/services/supabase";
 import type { FileItem } from "@/services/upload-file";
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
+import { useFormStatus } from "react-dom";
+import ProductCategoryCard from "./product-category-card";
+import ProductDetailsCard from "./product-details-card";
+import ProductImagesCard from "./product-images-card";
+import ProductStatusCard from "./product-status-card";
 
 export const FormItems = ({
 	uploadPercentage,
 	categories,
 	product,
-  setImages
+	setImages,
 }: {
 	product?: {
 		uri_id: string;
@@ -27,10 +27,10 @@ export const FormItems = ({
 		category: string;
 	} | null;
 	categories: { id: string; name: string }[];
-  setImages: React.Dispatch<React.SetStateAction<(FileItem | string)[]>>
+	setImages: React.Dispatch<React.SetStateAction<(FileItem | string)[]>>;
 	uploadPercentage: number;
 }) => {
-  const supabase = createClient();
+	const supabase = createClient();
 	const formStatus = useFormStatus();
 
 	return (

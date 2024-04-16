@@ -1,3 +1,4 @@
+import SpecificationsBackgroundImage from "@/assets/specifications-background.webp";
 import {
 	Carousel,
 	CarouselContent,
@@ -6,16 +7,15 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
-import type { Metadata } from "next";
-import Image from "next/image";
-import { SalesTeam } from "../../components/sales-team";
-import SpecificationsBackgroundImage from "@/assets/specifications-background.webp";
 import { getProduct } from "@/services/queries";
-import { cookies, headers } from "next/headers";
 import { createClient } from "@/services/supabase/server";
-import { notFound } from "next/navigation";
+import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import { sanitizeHTML } from "@/utils/sanitize-html";
+import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { SalesTeam } from "../../components/sales-team";
 
 type Props = { params: { id: string } };
 
@@ -47,7 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
 	const supabase = createClient(cookies());
-	const product = await getProduct(supabase, undefined, params.id);
+	const product = await getProduct(supabase, undefined, params.id, {
+		filter: (ctx) => ctx.eq("status", "published"),
+	});
 
 	if (!product) notFound();
 
