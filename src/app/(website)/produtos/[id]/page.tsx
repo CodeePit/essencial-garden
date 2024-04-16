@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
 	const supabase = createClient(cookies());
 	const product = await getProduct(supabase, undefined, params.id, {
-		filter: (ctx) => ctx.eq("status", "published"),
+		filters: (ctx) => ctx.eq("status", "published"),
 	});
 
 	if (!product) notFound();
