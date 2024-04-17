@@ -9,6 +9,7 @@ import ProductCategoryCard from "./product-category-card";
 import ProductDetailsCard from "./product-details-card";
 import ProductImagesCard from "./product-images-card";
 import ProductStatusCard from "./product-status-card";
+import type { Product } from "@/services/queries";
 
 export const FormItems = ({
 	uploadPercentage,
@@ -16,16 +17,7 @@ export const FormItems = ({
 	product,
 	setImages,
 }: {
-	product?: {
-		uri_id: string;
-		name: string;
-		description: string;
-		keywords: string;
-		id: string;
-		status: string;
-		images: string[];
-		category: string;
-	} | null;
+	product?: Product<string> | null;
 	categories: { id: string; name: string }[];
 	setImages: React.Dispatch<React.SetStateAction<(FileItem | string)[]>>;
 	uploadPercentage: number;

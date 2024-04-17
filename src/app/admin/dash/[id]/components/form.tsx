@@ -6,22 +6,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { handleProduct } from "../actions";
 import { FormItems } from "./form-items";
+import type { Product } from "@/services/queries";
 
 export const Form = ({
 	product,
 	categories,
 }: {
-	product: {
-		id: string;
-		keywords: string;
-		description: string;
-		uri_id: string;
-		name: string;
-		status: string;
-		category: string;
-		search: string;
-		images: string[];
-	} | null;
+	product: Product<string> | null;
 	categories: { id: string; name: string }[];
 }) => {
 	const router = useRouter();

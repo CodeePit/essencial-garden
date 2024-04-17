@@ -1,14 +1,13 @@
 "use server";
 import { createClient } from "@/services/supabase/server";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+ 
 
 export async function handleProduct(
 	id: string | undefined,
 	new_product: object,
 ) {
-	const cookiesStore = cookies();
-	const supabase = createClient(cookiesStore);
+	const supabase = createClient();
 
 	if (!Object.keys(new_product).length) return id;
 

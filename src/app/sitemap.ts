@@ -4,7 +4,7 @@ import { cookies, headers } from "next/headers";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const host = headers().get("x-url-host");
-	const supabase = createClient(cookies(), "no-cache");
+	const supabase = createClient("no-cache");
 	const products = await supabase.from("products").select("uri_id,updated_at");
 
 	return [

@@ -4,7 +4,7 @@ import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+ 
 import Image from "next/image";
 import { MissionVisionValues } from "../components/mission-vision-values";
 import { AboutVideo } from "./components/video";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const user = await supabase.auth.getUser();
 	const banners = await getBanners(supabase, "sobre");
 	const banners2 = await getBanners(supabase, "sobre-2");

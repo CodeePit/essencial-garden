@@ -3,11 +3,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/services/supabase/server";
-import { cookies } from "next/headers";
+ 
 
 export async function login(formData: FormData) {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const supabase = createClient();
 
 	const data = {
 		email: formData.get("email") as string,
@@ -28,8 +27,7 @@ export async function login(formData: FormData) {
 }
 
 export async function signOut() {
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const supabase = createClient();
 
 	await supabase.auth.signOut();
 

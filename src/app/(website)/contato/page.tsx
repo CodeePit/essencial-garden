@@ -11,7 +11,7 @@ import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+ 
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const user = await supabase.auth.getUser();
 	const banners = await getBanners(supabase, "contato");
 

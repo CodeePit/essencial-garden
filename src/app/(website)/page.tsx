@@ -12,7 +12,7 @@ import { getBanners, getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+ 
 import Image from "next/image";
 import Link from "next/link";
 import { Banner } from "../components/banner";
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const products = await getProducts(supabase, {
 		get: "name,images,id",
 		skip: 0,

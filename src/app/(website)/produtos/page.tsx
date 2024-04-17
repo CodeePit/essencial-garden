@@ -2,7 +2,7 @@ import { Banner } from "@/app/components/banner";
 import { getBanners, getCategories } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+ 
 import { Categories } from "./components/categories";
 import { Products } from "./components/products";
 
@@ -23,7 +23,7 @@ export default async function Page(props: PageProps) {
 		?.split(",")
 		.filter((s) => Boolean(s.length));
 
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const categories = await getCategories(supabase, {
 		skip: 0,
 		take: 10,

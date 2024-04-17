@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
+ 
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Catálogo",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const user = await supabase.auth.getUser();
 	const banners = await getBanners(supabase, "contato");
 

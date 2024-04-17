@@ -1,11 +1,10 @@
 "use server";
 
 import { createClient } from "@/services/supabase/server";
-import { cookies } from "next/headers";
+ 
 
 export async function handleCategory(formData: FormData) {
-	const cookiesStore = cookies();
-	const supabase = createClient(cookiesStore);
+	const supabase = createClient();
 
 	const data = {
 		id: formData.get("id") as string,
@@ -17,8 +16,7 @@ export async function handleCategory(formData: FormData) {
 }
 
 export async function deleteCategory(id: string) {
-	const cookiesStore = cookies();
-	const supabase = createClient(cookiesStore);
+	const supabase = createClient();
 
 	const { error } = await supabase.from("categories").delete().eq("id", id);
 	if (error) throw `Erro ao deletar a categoria: ${id}`;

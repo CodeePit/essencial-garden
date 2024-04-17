@@ -10,20 +10,16 @@ import {
 import { Input } from "@/components/admin/ui/input";
 import { Label } from "@/components/admin/ui/label";
 import { Textarea } from "@/components/admin/ui/textarea";
+import type { Product } from "@/services/queries";
 import { formatForURL } from "@/utils/format-for-url";
 import { URI_ID_INVALID_REGEX } from "@/utils/regex";
 import { Dices } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ProductDetailsCard({
 	defaultValue,
 }: {
-	defaultValue?: {
-		uri_id: string;
-		name: string;
-		description: string;
-		keywords: string;
-	} | null;
+	defaultValue?: Product<string> | null;
 }) {
 	const [uriId, setUriId] = useState(defaultValue?.uri_id || "");
 

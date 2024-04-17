@@ -21,7 +21,7 @@ type Props = { params: { id: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const host = headers().get("x-url-host");
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const product = await getProduct(supabase, undefined, params.id);
 
 	if (!product) return {};
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-	const supabase = createClient(cookies());
+	const supabase = createClient();
 	const product = await getProduct(supabase, undefined, params.id, {
 		filters: (ctx) => ctx.eq("status", "published"),
 	});

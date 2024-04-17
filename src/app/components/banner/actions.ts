@@ -1,16 +1,15 @@
 "use server";
 
 import { createClient } from "@/services/supabase/server";
-import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { revalidatePath, revalidateTag } from "next/cache";
+ 
 
 export async function handleBanners(
 	pathname: string,
 	deletedBanners: string[],
 	banners: { id?: string; title: string; banner: string; page: string }[],
 ) {
-	const cookiesStore = cookies();
-	const supabase = createClient(cookiesStore);
+	const supabase = createClient();
 
 	const { error } = await supabase
 		.from("banners")
@@ -28,7 +27,7 @@ export async function handleBanners(
 		),
 	);
 
-	revalidatePath(pathname, "page");
+	revalidateTag('supabase');
 
 	if (responses.some(({ error }) => !!error)) {
 		throw error

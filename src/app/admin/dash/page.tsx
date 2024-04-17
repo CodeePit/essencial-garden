@@ -29,7 +29,7 @@ import {
 } from "@/components/admin/ui/table";
 import { getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
-import { cookies } from "next/headers";
+ 
 import { DataTable } from "./components/table-products";
 
 export const revalidate = 0;
@@ -51,7 +51,7 @@ export default async function Page({ searchParams }: PageProps) {
 				: 0
 			: 0;
 
-	const products = await getProducts(createClient(cookies()), {
+	const products = await getProducts(createClient(), {
 		skip: offset,
 		take: limit,
 		search: search as string,

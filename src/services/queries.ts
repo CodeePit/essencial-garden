@@ -33,7 +33,17 @@ export const getBanners = cache(
 	},
 );
 
-export type Product = {
+export type Product<
+	T extends
+		| string
+		| {
+				id: string;
+				name: string;
+		  } = {
+		id: string;
+		name: string;
+	},
+> = {
 	id: string;
 	name: string;
 	status: string;
@@ -41,12 +51,10 @@ export type Product = {
 	created_at: string;
 	uri_id: string;
 	description: string;
+	search: string;
 	keywords?: string;
 	features: [];
-	category: {
-		id: string;
-		name: string;
-	};
+	category: T;
 };
 type Filter = ReturnType<
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
