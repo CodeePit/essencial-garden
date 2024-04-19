@@ -27,11 +27,8 @@ export const Products = ({
 
 	const {
 		data: products,
-		error,
 		fetchNextPage,
 		hasNextPage,
-		isFetchingNextPage,
-		status,
 	} = useInfiniteQuery({
 		queryKey: ["products"],
 		queryFn: ({ pageParam }: { pageParam: number }) => {
@@ -48,7 +45,7 @@ export const Products = ({
 			});
 		},
 		initialPageParam: 0,
-		getNextPageParam: (lastPage, allPages, lastPageParam) => {
+		getNextPageParam: (_, __, lastPageParam) => {
 			return lastPageParam + 1;
 		},
 	});

@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/services/supabase/server";
- 
 
 export async function handleCategory(formData: FormData) {
 	const supabase = createClient();

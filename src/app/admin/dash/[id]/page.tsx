@@ -1,6 +1,6 @@
 import { type Product, getCategories, getProduct } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
- 
+
 import { notFound } from "next/navigation";
 import { Form } from "./components/form";
 
@@ -14,5 +14,10 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 	if (params.id !== "create" && !product) notFound();
 
-	return <Form product={product as unknown as Product<string>} categories={categories || []} />;
+	return (
+		<Form
+			product={product as unknown as Product<string>}
+			categories={categories || []}
+		/>
+	);
 }

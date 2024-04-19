@@ -5,7 +5,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
- 
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Catálogo",

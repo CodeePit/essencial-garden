@@ -1,6 +1,6 @@
 import { getCategories } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
- 
+
 import { TableForm } from "./components/table-form";
 
 export default async function Page() {

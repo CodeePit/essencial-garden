@@ -1,5 +1,6 @@
 import { Badge } from "@/components/admin/ui/badge";
 import { Button } from "@/components/admin/ui/button";
+import type { Product } from "@/services/queries";
 import { createClient } from "@/services/supabase";
 import type { FileItem } from "@/services/upload-file";
 import { ChevronLeft } from "lucide-react";
@@ -9,7 +10,6 @@ import ProductCategoryCard from "./product-category-card";
 import ProductDetailsCard from "./product-details-card";
 import ProductImagesCard from "./product-images-card";
 import ProductStatusCard from "./product-status-card";
-import type { Product } from "@/services/queries";
 
 export const FormItems = ({
 	uploadPercentage,

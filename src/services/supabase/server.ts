@@ -2,9 +2,7 @@ import { type CookieOptions, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { cache } from "react";
 
-export const createClient = ((
-	cache: RequestCache = "force-cache",
-) => {
+export const createClient = (cache: RequestCache = "force-cache") => {
 	const cookieStore = cookies();
 
 	return createServerClient(
@@ -17,8 +15,8 @@ export const createClient = ((
 						...init,
 						cache,
 						next: {
-							tags: ['supabase'],
-						}
+							tags: ["supabase"],
+						},
 						// next: cache === "force-cache" ? { revalidate: 3600 } : undefined,
 					}),
 			},
@@ -47,4 +45,4 @@ export const createClient = ((
 			},
 		},
 	);
-});
+};

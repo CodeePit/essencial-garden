@@ -29,7 +29,7 @@ import {
 } from "@/components/admin/ui/table";
 import { getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
- 
+
 import { DataTable } from "./components/table-products";
 
 export const revalidate = 0;

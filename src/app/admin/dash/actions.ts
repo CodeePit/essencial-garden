@@ -2,7 +2,6 @@
 
 import { createClient } from "@/services/supabase/server";
 import { revalidatePath } from "next/cache";
- 
 
 export async function deleteProduct(id: string, name: string) {
 	const supabase = createClient();

@@ -1,12 +1,12 @@
 "use client";
 import { useToast } from "@/components/ui/use-toast";
+import type { Product } from "@/services/queries";
 import { createClient } from "@/services/supabase";
 import { type FileItem, handleUploadImages } from "@/services/upload-file";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { handleProduct } from "../actions";
 import { FormItems } from "./form-items";
-import type { Product } from "@/services/queries";
 
 export const Form = ({
 	product,

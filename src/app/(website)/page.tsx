@@ -12,7 +12,7 @@ import { getBanners, getProducts } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { RGB_GREEN_DATA_URL, rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
- 
+
 import Image from "next/image";
 import Link from "next/link";
 import { Banner } from "../components/banner";

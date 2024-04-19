@@ -11,7 +11,7 @@ import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { rgbDataURL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
- 
+
 import Image from "next/image";
 import Link from "next/link";
 

@@ -4,7 +4,7 @@ import { getBanners } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
- 
+
 import Image from "next/image";
 import { MissionVisionValues } from "../components/mission-vision-values";
 import { AboutVideo } from "./components/video";

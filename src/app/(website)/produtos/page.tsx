@@ -2,7 +2,7 @@ import { Banner } from "@/app/components/banner";
 import { getBanners, getCategories } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import type { Metadata } from "next";
- 
+
 import { Categories } from "./components/categories";
 import { Products } from "./components/products";
 

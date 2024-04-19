@@ -1,7 +1,6 @@
 "use server";
 import { createClient } from "@/services/supabase/server";
 import { revalidatePath } from "next/cache";
- 
 
 export async function handleProduct(
 	id: string | undefined,
@@ -25,5 +24,6 @@ export async function handleProduct(
 	}
 
 	revalidatePath("/admin/dash", "page");
+	revalidatePath("/produtos", "page");
 	return data.id;
 }
