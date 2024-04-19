@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { handleProduct } from "../actions";
 import { FormItems } from "./form-items";
+import { formatDate } from "@/utils/format-date";
 
 export const Form = ({
 	product,
@@ -67,7 +68,7 @@ export const Form = ({
 				)?.name;
 				const search = `${new_product.name || product?.name}, ${
 					new_product.status || product?.status
-				}, ${categoryName}`;
+				}, ${categoryName}, ${formatDate(product?.created_at)}`;
 				new_product.search = getValueIfIsChange(product?.search, search);
 
 				try {
@@ -93,6 +94,11 @@ export const Form = ({
 
 					router.push("/admin/dash");
 				} catch (e) {
+					if ((e as Error).message.includes('URL do Produto')) {
+						document.getElementById('uri-id')?.focus();
+						document.getElementById('uri-id')?.setAttribute('data-error', 'true');
+					}
+
 					toast({
 						variant: "destructive",
 						title: "Ops!",

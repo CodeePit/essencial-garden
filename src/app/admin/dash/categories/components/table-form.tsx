@@ -90,7 +90,7 @@ export const TableForm = (props: {
 									</TableCell>
 									<TableCell
 										title={category.name}
-										className="font-medium max-w-0 2xs:table-cell hidden"
+										className="font-medium max-w-0 table-cell"
 									>
 										<form
 											action={async (formData) => {

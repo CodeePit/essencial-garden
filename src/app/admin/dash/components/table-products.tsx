@@ -54,6 +54,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { deleteProduct } from "../actions";
+import { formatDate } from "@/utils/format-date";
 
 export const columns: ColumnDef<Product>[] = [
 	{
@@ -129,16 +130,7 @@ export const columns: ColumnDef<Product>[] = [
 		cell: (props) => {
 			return (
 				<time>
-					{new Date(props.row.original.created_at).toLocaleDateString("pt-BR", {
-						year: "numeric",
-						month: "long",
-						day: "numeric",
-						hourCycle: "h24",
-						hour: "2-digit",
-						minute: "2-digit",
-						second: "2-digit",
-						hour12: true,
-					})}
+					{formatDate(props.row.original.created_at)}
 				</time>
 			);
 		},

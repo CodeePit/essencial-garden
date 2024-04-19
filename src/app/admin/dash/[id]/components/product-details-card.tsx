@@ -55,7 +55,7 @@ export default function ProductDetailsCard({
 								https://essencial-garden.vercel.app/produto/
 							</span>
 							<Input
-								className="rounded-none max-2xs:rounded-l-md border-r-transparent !ring-transparent !ring-0 !ring-offset-0"
+								className="rounded-none max-2xs:rounded-l-md border-r-transparent !ring-transparent !ring-0 !ring-offset-0 [&[data-error=true]]:border-destructive"
 								value={uriId}
 								id="uri-id"
 								name="uri_id"
@@ -63,6 +63,8 @@ export default function ProductDetailsCard({
 								required
 								maxLength={25}
 								onChange={(ev) => {
+									ev.target.setAttribute('data-error', 'false')
+
 									setUriId(
 										ev.target.value.length <= 25
 											? ev.target.value
