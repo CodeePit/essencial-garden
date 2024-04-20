@@ -10,7 +10,7 @@ export const createClient = (cache: RequestCache = "force-cache") => {
 				fetch: (input, init) =>
 					fetch(input, {
 						...init,
-						cache,
+						next: cache === "force-cache" ? { revalidate: 3600 } : undefined,
 					}),
 			},
 		},

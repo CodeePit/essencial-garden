@@ -14,6 +14,9 @@ export const createClient = (cache: RequestCache = "force-cache") => {
 					fetch(input, {
 						...init,
 						cache,
+						next: {
+							tags: ["supabase"],
+						},
 						// next: cache === "force-cache" ? { revalidate: 3600 } : undefined,
 					}),
 			},
