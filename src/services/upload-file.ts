@@ -103,7 +103,7 @@ export async function handleUploadImages(
 			if (typeof file === "string") return true;
 
 			const imageWebp = await imageConversion(file, {
-				quality: 0.8,
+				quality: 1,
 				scale: 0.75,
 			});
 
