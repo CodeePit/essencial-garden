@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default async function Page() {
 	const supabase = createClient();
 	const user = await supabase.auth.getUser();
-	const banners = await getBanners(supabase, "contato");
+	const banners = await getBanners(supabase, "catalogo");
 
 	return (
 		<>
