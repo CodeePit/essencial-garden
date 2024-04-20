@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/services/supabase/server";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 export async function handleBanners(
 	pathname: string,
@@ -26,7 +26,7 @@ export async function handleBanners(
 		),
 	);
 
-	revalidateTag("supabase");
+	revalidatePath(pathname, "page");
 
 	if (responses.some(({ error }) => !!error)) {
 		throw error

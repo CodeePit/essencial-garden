@@ -36,12 +36,13 @@ export default async function Home() {
 		take: 10,
 	});
 	const banners = await getBanners(supabase, "inicio");
+	const user = await supabase.auth.getUser();
 
 	return (
 		<>
 			<section>
 				<Carousel className="w-full">
-					<BannerEditContent multiple />
+				{!!user.data.user?.id && <BannerEditContent multiple />}
 					<CarouselContent>
 						{(banners.length ? banners : [null]).map((banner) => (
 							<CarouselItem key={banner ? banner.id : "placeholder"}>
