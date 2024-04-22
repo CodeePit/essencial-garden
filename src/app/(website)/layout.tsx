@@ -1,7 +1,7 @@
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FOOTER_INFO } from "@/mock/footer-infos";
 import { MEDIAS } from "@/mock/medias";
 import { Menu } from "lucide-react";
@@ -55,9 +55,11 @@ export default function RootLayout({
 						<SheetContent side="right" className="w-full max-sm:h-fit">
 							<nav className="grid gap-6 text-lg font-medium py-8">
 								{LINKS.map((item) => (
-									<NavLink key={item.href} href={item.href}>
-										{item.label}
-									</NavLink>
+									<SheetClose key={item.href} asChild>
+										<NavLink href={item.href}>
+											{item.label}
+										</NavLink>
+									</SheetClose>
 								))}
 							</nav>
 						</SheetContent>
