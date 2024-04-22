@@ -24,9 +24,21 @@ export default function RootLayout({
 }>) {
 	return (
 		<Providers>
-			<header className="sticky top-0 z-50 bg-background">
+			<header className="sticky top-0 z-[99999] bg-background">
 				<div className="h-2 w-full bg-thirdly" />
-				<div className="py-8 max-w-screen-xl mx-auto justify-center lg:justify-between items-end flex px-4">
+				<div className="py-8 relative max-w-screen-xl mx-auto justify-center lg:justify-between items-end flex px-4">
+					<div className="absolute -top-2 right-4 z-[99]">
+						<Link
+							href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="bg-primary hover:bg-primary/80 text-background font-bold px-4 py-4 rounded-b-3xl flex items-center"
+						>
+							<Icons.WhatsApp className="w-6 h-6 mr-2" />
+							<span>FALE CONOSCO</span>
+						</Link>
+					</div>
+					
 					<Link href="/">
 						<span className="sr-only">Ir para Início</span>
 						<Icons.Logo />
@@ -66,6 +78,18 @@ export default function RootLayout({
 					</Sheet>
 				</div>
 			</header>
+			
+			<div className="fixed bottom-6 right-0 z-[99]">
+				<Link
+					href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="bg-primary hover:bg-primary/80 text-background px-4 py-4 flex items-center"
+				>
+					<Icons.WhatsApp className="w-8 h-8" />
+					<span className="sr-only">Ir para WhatsApp</span>
+				</Link>
+			</div>
 			<main className="w-full h-full bg-primary/5">{children}</main>
 			<footer className="">
 				<section className="text-center bg-primary text-background py-8">
