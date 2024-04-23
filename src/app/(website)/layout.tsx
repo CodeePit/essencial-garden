@@ -27,7 +27,7 @@ export default function RootLayout({
 			<header className="sticky top-0 z-[99999] bg-background">
 				<div className="h-2 w-full bg-thirdly" />
 				<div className="py-8 relative max-w-screen-xl mx-auto justify-center lg:justify-between items-end flex px-4">
-					<div className="absolute -top-2 right-4 z-[99] lg:hidden">
+					<div className="absolute -top-2 right-4 z-[99] max-lg:hidden">
 						<Link
 							href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE"
 							target="_blank"
