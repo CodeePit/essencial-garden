@@ -1,6 +1,6 @@
 export const MEDIAS = [
 	{
-		url: "",
+		url: "https://www.instagram.com/essencial.garden/",
 		label: "Ir para Instagram",
 		icon: (
 			<svg

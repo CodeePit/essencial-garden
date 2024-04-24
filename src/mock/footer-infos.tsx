@@ -5,11 +5,11 @@ export const FOOTER_INFO = [
 	{
 		description: (
 			<address className="not-italic">
-				Nome da rua, 000
+				Rua Francisca Salas Munhoz, no85
 				<br />
-				Bairro • Cidade / SP
+				Distrito Indústrial • Araçoiaba Da Serra / SP
 				<br />
-				CEP 00000-000
+				CEP 18.190-000
 			</address>
 		),
 		Icon: (props: React.SVGAttributes<HTMLOrSVGElement>) => (
@@ -38,7 +38,13 @@ export const FOOTER_INFO = [
 		),
 	},
 	{
-		description: <a href="tel:00000000000">00 00000.0000</a>,
+		description: (
+			<span>
+				<a href="tel:+5515981420076">(15) 98142-0076</a>
+				<br />
+				<a href="tel:+551532814448">(15) 3281-4448</a>
+			</span>
+		),
 		Icon: ({ className, ...props }: React.SVGAttributes<HTMLOrSVGElement>) => (
 			<Icons.WhatsApp {...props} className={cn("!mt-0.5", className)} />
 		),

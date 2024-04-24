@@ -29,7 +29,7 @@ export default function RootLayout({
 				<div className="py-8 relative max-w-screen-xl mx-auto justify-center lg:justify-between items-end flex px-4">
 					<div className="absolute -top-2 right-4 z-[99] max-lg:hidden">
 						<Link
-							href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE"
+							href="https://api.whatsapp.com/send?phone=15981420076"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="bg-primary hover:bg-primary/80 text-background font-bold px-4 py-4 rounded-b-3xl flex items-center"
@@ -81,7 +81,7 @@ export default function RootLayout({
 			
 			<div className="fixed bottom-6 right-0 z-[99]">
 				<Link
-					href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE"
+					href="https://api.whatsapp.com/send?phone=15981420076"
 					target="_blank"
 					rel="noopener noreferrer"
 					className="bg-primary hover:bg-primary/80 text-background px-4 py-4 flex items-center"
