@@ -33,6 +33,23 @@ export const getBanners = cache(
 	},
 );
 
+export const getVideo = cache(
+	async (
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		ctx: SupabaseClient<any, "public", any>,
+		page: string,
+	) => {
+		const { data, error } = await ctx
+			.from("videos")
+			.select("*")
+			.eq("page", page)
+			.single();
+
+		if (error) return null;
+		return data;
+	},
+);
+
 export type Product<
 	T extends
 		| string

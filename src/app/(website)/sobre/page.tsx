@@ -1,13 +1,14 @@
 import { Banner } from "@/app/components/banner";
 import AboutBackgroundImage from "@/assets/about-background.webp";
-import { getBanners } from "@/services/queries";
+import { getBanners, getVideo } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
 import type { Metadata } from "next";
 
 import Image from "next/image";
 import { MissionVisionValues } from "../components/mission-vision-values";
-import { AboutVideo } from "./components/video";
+import { AboutVideo, VideoForm } from "./components/video";
+
 
 export const metadata: Metadata = {
 	title: "Essencial Garden | Produtos",
@@ -21,6 +22,7 @@ export default async function Page() {
 	const user = await supabase.auth.getUser();
 	const banners = await getBanners(supabase, "sobre");
 	const banners2 = await getBanners(supabase, "sobre-2");
+	const video = await getVideo(supabase, "sobre");
 
 	return (
 		<>
@@ -88,7 +90,14 @@ export default async function Page() {
 
 				<div className="max-w-screen-xl mx-auto pt-28 px-4 space-y-12 relative pb-32">
 					<MissionVisionValues />
-					<AboutVideo />
+					<div className="relative">
+						<AboutVideo videoId={video.video} />
+						{!!user.data.user?.id && (
+		
+							<VideoForm video={video} />
+	
+						)}
+					</div>
 				</div>
 			</section>
 			<Banner
