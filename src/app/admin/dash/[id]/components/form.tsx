@@ -73,6 +73,8 @@ export const Form = ({
 
 				try {
 					const res = await handleProduct(product?.id, new_product);
+					if (typeof res !== 'string') throw res.error;
+
 					const uploadSuccessStatus = await handleUploadImages(
 						"products",
 						res,
@@ -94,7 +96,7 @@ export const Form = ({
 
 					router.push("/admin/dash");
 				} catch (e) {
-					if ((e as Error).message.includes('URL do Produto')) {
+					if ((e as string).includes('URL do Produto')) {
 						document.getElementById('uri-id')?.focus();
 						document.getElementById('uri-id')?.setAttribute('data-error', 'true');
 					}
@@ -102,7 +104,7 @@ export const Form = ({
 					toast({
 						variant: "destructive",
 						title: "Ops!",
-						description: (e as Error).message,
+						description: (e as string),
 					});
 				}
 			}}

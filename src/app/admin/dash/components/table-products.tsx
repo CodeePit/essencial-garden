@@ -183,13 +183,14 @@ export const columns: ColumnDef<Product>[] = [
 						<form
 							action={async () => {
 								try {
-									await deleteProduct(
+									const res = await deleteProduct(
 										props.row.original.id,
 										props.row.original.name,
 									);
+									if (typeof res === 'string') throw res;
 								} catch (e) {
 									toast({
-										description: (e as Error).message,
+										description: (e as string),
 										title: "Ops!",
 										variant: "destructive",
 									});

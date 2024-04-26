@@ -29,12 +29,12 @@ export async function handleBanners(
 	revalidateTag("supabase");
 
 	if (responses.some(({ error }) => !!error)) {
-		throw error
+		return error
 			? "Ocorreu um erro ao salvar/deletar alguns banners."
 			: "Ocorreu um erro ao salvar alguns banners.";
 	}
 
 	if (error) {
-		throw "Ocorreu um erro ao deletar alguns banners.";
+		return "Ocorreu um erro ao deletar alguns banners.";
 	}
 }

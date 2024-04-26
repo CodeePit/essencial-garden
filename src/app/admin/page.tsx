@@ -24,11 +24,12 @@ export default function Page() {
 						action={async (formData) => {
 							setIsLoading(true);
 							try {
-								await login(formData);
+								const res = await login(formData);
+								if (typeof res === 'string') throw res
 							} catch (e) {
 								toast({
 									title: "Ops! Encontramos um Erro.",
-									description: (e as Error).message.replace("Error: ", ""),
+									description: (e as string).replace("Error: ", ""),
 									variant: "destructive",
 								});
 							}

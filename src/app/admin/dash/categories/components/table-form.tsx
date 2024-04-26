@@ -1,22 +1,13 @@
 "use client";
 import { Button } from "@/components/admin/ui/button";
-import { MoreHorizontal } from "lucide-react";
 
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/admin/ui/card";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuTrigger,
-} from "@/components/admin/ui/dropdown-menu";
 import {
 	Table,
 	TableBody,
@@ -28,7 +19,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { generateRandomCode } from "@/utils/generate-random-code";
 import { useMemo, useState } from "react";
-import { deleteCategory, handleCategory } from "../actions";
+import { handleCategory } from "../actions";
 import { DeleteCategory } from "./delete-category";
 
 export const TableForm = (props: {
@@ -95,7 +86,9 @@ export const TableForm = (props: {
 										<form
 											action={async (formData) => {
 												try {
-													await handleCategory(formData);
+													const res = await handleCategory(formData);
+													if (typeof res === 'string') throw res;
+
 													setUpdatedCategories((prev) => {
 														prev.delete(category.id);
 														return new Set(prev);
@@ -120,7 +113,7 @@ export const TableForm = (props: {
 												} catch (e) {
 													toast({
 														variant: "destructive",
-														description: (e as Error).message,
+														description: (e as string),
 														title: "Ops!",
 													});
 												}

@@ -7,7 +7,7 @@ export async function deleteProduct(id: string, name: string) {
 	const supabase = createClient();
 
 	const { error } = await supabase.from("products").delete().eq("id", id);
-	if (error) throw `Erro ao deletar o produto: ${name}`;
+	if (error) return `Erro ao deletar o produto: ${name}`;
 
 	revalidatePath("/admin/dash", "page");
 }

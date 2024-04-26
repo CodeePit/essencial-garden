@@ -67,7 +67,8 @@ export const DeleteCategory = ({
 				<form
 					action={async () => {
 						try {
-							await deleteCategory(id);
+							const res = await deleteCategory(id);
+							if (res) throw res;
 							handleCategories((prev) => {
 								const newPrev = [...prev];
 								newPrev.splice(index, 1);
@@ -76,7 +77,7 @@ export const DeleteCategory = ({
 						} catch (e) {
 							toast({
 								variant: "destructive",
-								description: (e as Error).message,
+								description: (e as string),
 								title: "Ops!",
 							});
 						}

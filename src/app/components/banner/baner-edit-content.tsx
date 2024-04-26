@@ -172,7 +172,7 @@ export const BannerEditContent = ({
 					onSubmit={() => setLoading(true)}
           action={async () => {
             try {
-              await handleBanners(
+              const res = await handleBanners(
                 pathname,
                 deletedBanners,
                 banners.filter((banner) => {
@@ -186,6 +186,8 @@ export const BannerEditContent = ({
                   );
                 })
               );
+
+              if (typeof res === 'string') throw res
 
               const uploadSuccessStatus = await handleUploadImages(
                 "banners",
@@ -216,7 +218,7 @@ export const BannerEditContent = ({
               toast({
                 variant: "destructive",
                 title: "Ops!",
-                description: (e as Error).message,
+                description: e as string,
               });
             }
 
