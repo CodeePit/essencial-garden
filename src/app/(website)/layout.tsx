@@ -182,6 +182,7 @@ export default function RootLayout({
 					</div>
 				</section>
 				<section className="flex items-center justify-center w-full p-2">
+					<Link href="https://coreag.com.br/">
 					<svg
 						width="131"
 						height="11"
@@ -275,6 +276,7 @@ export default function RootLayout({
 							className="fill-primary"
 						/>
 					</svg>
+					</Link>
 				</section>
 			</footer>
 		</Providers>
