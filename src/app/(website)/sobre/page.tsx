@@ -1,5 +1,6 @@
 import { Banner } from "@/app/components/banner";
 import AboutBackgroundImage from "@/assets/about-background.webp";
+import AboutPeopleImage from "@/assets/about-people.webp";
 import { getBanners, getVideo } from "@/services/queries";
 import { createClient } from "@/services/supabase/server";
 import { RGB_GRAY_DATA_URL, RGB_GREEN_DATA_URL } from "@/utils/rgb-to-data-url";
@@ -68,8 +69,8 @@ export default async function Page() {
 					alcançar seus objetivos.
 				</p>
 				<Image
-					src="/placeholder.svg"
-					alt="placeholder"
+					src={AboutPeopleImage}
+					alt="Uma mulher sorrindo regando uma planta com um borrifador"
 					placeholder="blur"
 					blurDataURL={RGB_GREEN_DATA_URL}
 					className="w-full"
