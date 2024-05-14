@@ -12,6 +12,7 @@ export const Banner = ({
 	title,
 	page,
 	className,
+	containerClassName,
 	...props
 }: {
 	src: string;
@@ -19,13 +20,14 @@ export const Banner = ({
 	title: string;
 	page?: string;
 	className?: string;
+	containerClassName?: string,
 	blurDataURL?: string;
 	edit?: boolean;
 	multiple?: boolean;
 	children?: React.ReactNode;
 }) => {
 	return (
-		<div className="w-full h-[80dvh] relative">
+		<div className={cn("w-full h-[80dvh] relative", containerClassName)}>
 			<Image
 				sizes="100vw"
 				placeholder="blur"
