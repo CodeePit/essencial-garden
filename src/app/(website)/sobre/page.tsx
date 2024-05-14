@@ -104,7 +104,7 @@ export default async function Page() {
 			<Banner
 				page="sobre-2"
 				title={banners2[0]?.title || ""}
-				containerClassName="h-auto"
+				containerClassName="max-lg:h-auto"
 				src={
 					banners2.length
 						? supabase.storage
