@@ -64,7 +64,7 @@ export default function RootLayout({
 								<span className="sr-only">Abrir/Fechar menu de navegação</span>
 							</button>
 						</SheetTrigger>
-						<SheetContent side="right" className="w-full max-sm:h-fit">
+						<SheetContent side="right" className="w-full z-[100000] max-sm:h-fit">
 							<nav className="grid gap-6 text-lg font-medium py-8">
 								{LINKS.map((item) => (
 									<SheetClose key={item.href} asChild>
