@@ -32,7 +32,7 @@ export const Banner = ({
 				sizes="100vw"
 				placeholder="blur"
 				blurDataURL={blurDataURL}
-				className={cn("mx-auto w-full h-full absolute object-cover", props.src.includes('13350137-09d1-4392-ae7d-40d880f94736') && 'object-right')}
+				className={cn("mx-auto w-full h-full absolute object-cover", props.src.includes('13350137-09d1-4392-ae7d-40d880f94736') && 'object-[75%_0]')}
 				width={1920}
 				height={720}
 				{...props}
