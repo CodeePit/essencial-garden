@@ -36,7 +36,7 @@ export default function Layout({
 							className="flex items-center gap-2 font-semibold"
 						>
 							<Package2 className="h-6 w-6" />
-							<span className="">DevStyle Dash</span>
+							<span className="">Dash</span>
 						</Link>
 					</div>
 					<div className="flex-1">
