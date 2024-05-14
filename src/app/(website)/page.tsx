@@ -42,7 +42,7 @@ export default async function Home() {
 		<>
 			<section>
 				<Carousel className="w-full">
-				{!!user.data.user?.id && <BannerEditContent multiple />}
+					{!!user.data.user?.id && <BannerEditContent multiple />}
 					<CarouselContent>
 						{(banners.length ? banners : [null]).map((banner) => (
 							<CarouselItem key={banner ? banner.id : "placeholder"}>
