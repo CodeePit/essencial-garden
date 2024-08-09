@@ -89,7 +89,7 @@ export const BannerEditContent = ({
                 .getPublicUrl(`${page}/${banner}.webp`).data.publicUrl
           ) || []
         );
-        setDefaultBanners(bannersInitial);
+        setDefaultBanners(structuredClone(bannersInitial));
       });
 
     return () => {
@@ -180,6 +180,7 @@ export const BannerEditContent = ({
                   const defaultBanner = defaultBanners?.find(
                     ({ id }) => id === banner.id
                   );
+
                   return (
                     banner.banner !== defaultBanner?.banner ||
                     banner.title !== defaultBanner?.title
