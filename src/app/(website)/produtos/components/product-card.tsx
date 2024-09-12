@@ -32,9 +32,9 @@ export const ProductCard = ({
 					alt="placeholder"
 					placeholder="blur"
 					blurDataURL={RGB_GREEN_DATA_URL}
-					className="w-full h-full object-fill"
-					width={192}
-					height={256}
+					className="w-full h-full object-cover"
+					width={500}
+					height={500}
 				/>
 			</div>
 			<h3 className="text-xl h-full w-full truncate font-bold text-secondary">
