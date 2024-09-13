@@ -74,8 +74,8 @@ export default async function Page({ params }: Props) {
 										placeholder="blur"
 										blurDataURL={RGB_GREEN_DATA_URL}
 										className="w-auto !h-[380px] mx-auto object-cover"
-										width={180}
-										height={256}
+										width={1000}
+										height={1000}
 									/>
 								</CarouselItem>
 							))}
