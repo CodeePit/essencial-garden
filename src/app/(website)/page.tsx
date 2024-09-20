@@ -117,9 +117,9 @@ export default async function Home() {
 												alt="placeholder"
 												placeholder="blur"
 												blurDataURL={RGB_GREEN_DATA_URL}
-												className="w-full h-full object-fill"
-												width={192}
-												height={256}
+												className="w-full h-full object-cover"
+												width={600}
+												height={600}
 											/>
 										</div>
 										<h3 className="text-xl font-bold text-secondary">
