@@ -45,6 +45,7 @@ export const Form = ({
 					),
 					uri_id: getValueIfIsChange(product?.uri_id, formData.get("uri_id")),
 					name: getValueIfIsChange(product?.name, formData.get("name")),
+					size: getValueIfIsChange(product?.size, formData.get("size")),
 					status: getValueIfIsChange(product?.status, formData.get("status")),
 					category: getValueIfIsChange(
 						product?.category,

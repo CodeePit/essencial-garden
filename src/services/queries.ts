@@ -69,6 +69,7 @@ export type Product<
 	uri_id: string;
 	description: string;
 	search: string;
+	size?: string;
 	keywords?: string;
 	features: [];
 	category: T;

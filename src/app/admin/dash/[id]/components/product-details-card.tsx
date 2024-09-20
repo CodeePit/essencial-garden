@@ -46,6 +46,18 @@ export default function ProductDetailsCard({
 						/>
 					</div>
 					<div className="grid gap-3">
+						<Label htmlFor="size">Tamanho*</Label>
+						<Input
+							id="size"
+							name="size"
+							type="text"
+							className="w-full"
+							placeholder="XX"
+							required
+							defaultValue={defaultValue?.size}
+						/>
+					</div>
+					<div className="grid gap-3">
 						<Label htmlFor="uri-id">URL do Produto*</Label>
 						<div className="flex focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-ring rounded">
 							<span
