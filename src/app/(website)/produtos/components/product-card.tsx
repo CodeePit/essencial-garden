@@ -41,11 +41,11 @@ export const ProductCard = ({
 				{product.name}
 			</h3>
 
-			<Separator />
+			{/* <Separator />
 			<div className="flex justify-between w-full px-2">
 				<h4>Tamanhos</h4>
 				<span>XX</span>
-			</div>
+			</div> */}
 			<Separator />
 
 			<p className="line-clamp-5 text-center h-full">{product.description}</p>
