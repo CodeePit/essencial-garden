@@ -21,7 +21,7 @@ export const ProductCard = ({
 			className="w-full p-8 bg-background rounded-xl shadow-xl items-center flex flex-col space-y-4"
 			ref={innerRef}
 		>
-			<div className="min-h-64 w-48">
+			<div>
 				<Image
 					src={
 						supabase.storage
@@ -32,7 +32,7 @@ export const ProductCard = ({
 					alt="placeholder"
 					placeholder="blur"
 					blurDataURL={RGB_GREEN_DATA_URL}
-					className="w-full h-full object-cover"
+					className="w-[220px] h-[220px] object-cover"
 					width={500}
 					height={500}
 				/>
@@ -48,7 +48,7 @@ export const ProductCard = ({
 			</div>
 			<Separator />
 
-			<p className="line-clamp-5 text-center h-full">{product.description}</p>
+			<p className="line-clamp-3 text-center h-full overflow-ellipsis">{product.description}</p>
 
 			<Button asChild>
 				<Link href={`/produtos/${product.uri_id}`}>Ver Produto »</Link>

@@ -34,7 +34,7 @@ export const Products = ({
 		queryFn: ({ pageParam }: { pageParam: number }) => {
 			return getProducts(supabase, {
 				...getPagination(pageParam, 10),
-				get: "name,images,id,uri_id,description",
+				get: "name,images,id,uri_id,description,size",
 				filters:
 					selectedCategories.size > 0
 						? (ctx) =>

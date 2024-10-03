@@ -105,7 +105,7 @@ export default async function Home() {
 										key={product.id}
 										className="w-fit items-center flex flex-col space-y-4 lg:basis-1/5 md:basis-1/3 sm:basis-1/2"
 									>
-										<div className="h-64 w-48">
+										<div>
 											<Image
 												src={
 													supabase.storage
@@ -117,7 +117,7 @@ export default async function Home() {
 												alt="placeholder"
 												placeholder="blur"
 												blurDataURL={RGB_GREEN_DATA_URL}
-												className="w-full h-full object-cover"
+												className="w-[250px] h-[250px] object-cover"
 												width={600}
 												height={600}
 											/>

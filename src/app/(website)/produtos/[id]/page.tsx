@@ -93,7 +93,11 @@ export default async function Page({ params }: Props) {
 				</div>
 
 				<div className="lg:max-w-lg space-y-10">
-					<h1 className="font-bold text-4xl text-secondary">{product.name}</h1>
+					<h1 className="font-bold text-4xl text-secondary">
+						{product.name}
+						<br />
+						<span className="text-2xl">Tamanhos: {product.size}</span>
+					</h1>
 					<p
 						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 						dangerouslySetInnerHTML={{
