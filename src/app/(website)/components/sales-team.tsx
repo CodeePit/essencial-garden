@@ -45,7 +45,7 @@ export const SalesTeam = () => (
 				alt="Uma garota sorrindo segurando um vaso de plantas"
 				placeholder="blur"
 				blurDataURL={rgbDataURL(235, 238, 233)}
-				className="absolute min-w-[32rem] -top-48 left-1/2 lg:-left-8 max-lg:-translate-x-1/2"
+				className="absolute pointer-events-none min-w-[32rem] -top-48 left-1/2 lg:-left-8 max-lg:-translate-x-1/2"
 			/>
 
 			<div className="relative max-lg:mt-[min(20rem,32rem)] lg:translate-x-1/2 py-12 h-fit px-14 bg-thirdly space-y-2 max-w-md rounded-3xl">

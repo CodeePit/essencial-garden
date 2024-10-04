@@ -117,7 +117,7 @@ export default async function Home() {
 												alt="placeholder"
 												placeholder="blur"
 												blurDataURL={RGB_GREEN_DATA_URL}
-												className="w-[250px] h-[250px] object-cover"
+												className="max-w-[250px] w-full aspect-square max-h-[250px] object-cover"
 												width={600}
 												height={600}
 											/>

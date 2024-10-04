@@ -32,7 +32,7 @@ export const ProductCard = ({
 					alt="placeholder"
 					placeholder="blur"
 					blurDataURL={RGB_GREEN_DATA_URL}
-					className="w-[220px] h-[220px] object-cover"
+					className="max-w-[220px] w-full aspect-square max-h-[220px] object-cover"
 					width={500}
 					height={500}
 				/>
