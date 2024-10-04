@@ -73,7 +73,7 @@ export default async function Page({ params }: Props) {
 										alt=""
 										placeholder="blur"
 										blurDataURL={RGB_GREEN_DATA_URL}
-										className="w-auto !h-[380px] mx-auto object-cover"
+										className="w-auto !h-[380px] mx-auto object-contain"
 										width={1000}
 										height={1000}
 									/>
