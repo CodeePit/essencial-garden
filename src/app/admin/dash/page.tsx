@@ -41,15 +41,10 @@ interface PageProps {
 }
 
 export default async function Page({ searchParams }: PageProps) {
-	const { page, per_page, search } = searchParams;
+	const { search } = searchParams;
 
-	const limit = typeof per_page === "string" ? Number.parseInt(per_page) : 10;
-	const offset =
-		typeof page === "string"
-			? Number.parseInt(page) > 0
-				? (Number.parseInt(page) - 1) * limit
-				: 0
-			: 0;
+	const limit = 9999;
+	const offset = 0;
 
 	const products = await getProducts(createClient(), {
 		skip: offset,

@@ -249,9 +249,11 @@ export const DataTable = ({ data }: { data: Product[] }) => {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
-	const page = searchParams?.get("page") ?? "1";
-	const per_page = searchParams?.get("per_page") ?? "10";
-	const search = searchParams?.get("search") ?? "";
+	const search = React.useMemo(() => {
+		if (!searchParams) return "";
+		const search = searchParams.get("search");
+		return search ? String(search) : "";
+	}, [searchParams]);
 
 	const createQueryString = React.useCallback(
 		(params: Record<string, string | number | null>) => {
@@ -270,8 +272,8 @@ export const DataTable = ({ data }: { data: Product[] }) => {
 	// handle server-side pagination
 	const [{ pageIndex, pageSize }, setPagination] =
 		React.useState<PaginationState>({
-			pageIndex: Number(page) - 1,
-			pageSize: Number(per_page),
+			pageIndex: 0,
+			pageSize: 10,
 		});
 
 	const pagination = React.useMemo(
@@ -281,23 +283,6 @@ export const DataTable = ({ data }: { data: Product[] }) => {
 		}),
 		[pageIndex, pageSize],
 	);
-
-	React.useEffect(() => {
-		setPagination({
-			pageIndex: Number(page) - 1,
-			pageSize: Number(per_page),
-		});
-	}, [page, per_page]);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	React.useEffect(() => {
-		router.push(
-			`${pathname}?${createQueryString({
-				page: pageIndex + 1,
-				per_page: pageSize,
-			})}`,
-		);
-	}, [pageIndex, pageSize]);
 
 	const [globalFilter, setGlobalFilter] = React.useState<string>(search);
 
@@ -310,6 +295,7 @@ export const DataTable = ({ data }: { data: Product[] }) => {
 		getFilteredRowModel: getFilteredRowModel(),
 		enableGlobalFilter: true,
 		manualFiltering: true,
+		onPaginationChange: setPagination,
 		state: {
 			pagination,
 			globalFilter,
